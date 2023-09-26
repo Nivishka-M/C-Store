@@ -1,0 +1,8 @@
+# This E-R diagram utilizes the notation used in the recommended book, "Silberschatz, A., Korth, H. F., & S Sudarshan. (2020). Database system concepts. Mcgraw-Hill Education."
+# This E-R diagram doesn't specify the foreign key constraints on entity sets since they are implicit from cardinality limits on relationship sets.
+‌# This E-R diagram doesn't specify the datatypes of the attributes since datatypes are DBMS specific.
+
+1. SKU is warehouse-specific, meaning that the same variant can have different SKUs depending on the warehouse it is stored.
+2. Orders are not directly related to carts since the system enables a 'Buy Now' feature. Instead they keep track of the variants & the warehouses those variants are stored, once the cart is emptied.
+3. Cart is a weak entity set since its existence is dependent on the Customer entity set. (Its depiction does not adhere to the notation since lucidchart does not support double rectangles & double diamonds.)
+
