@@ -10,7 +10,6 @@ public class Image {
     @Column(name = "image_id", nullable = false)
     private Long id;
 
-    @Lob
     @Column(name = "content")
     private byte[] content;
 

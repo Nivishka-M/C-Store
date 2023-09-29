@@ -24,6 +24,16 @@ ALTER TABLE `sub_category` ADD PRIMARY KEY (`category_id`, `sub_category_id`);
 ALTER TABLE `sub_category` ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
 ALTER TABLE `sub_category` ADD FOREIGN KEY (`sub_category_id`) REFERENCES `category` (`category_id`);
 
+-- Image
+DROP TABLE IF EXISTS `image`;
+
+CREATE TABLE `image` (
+                         `image_id` BIGINT,
+                         `content`  MEDIUMBLOB
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE `image` ADD PRIMARY KEY (`image_id`);
+
 -- Product
 DROP TABLE IF EXISTS `product`;
 
@@ -36,6 +46,18 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE `product` ADD PRIMARY KEY (`product_id`);
+
+-- Product Image
+DROP TABLE IF EXISTS `variant_image`;
+
+CREATE TABLE `product_image` (
+    `image_id`   BIGINT,
+    `product_id` BIGINT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE `product_image` ADD PRIMARY KEY (`image_id`);
+ALTER TABLE `product_image` ADD FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE;
+ALTER TABLE `product_image` ADD FOREIGN KEY (`image_id`) REFERENCES `image` (`image_id`) ON DELETE CASCADE;
 
 -- Belongs to
 DROP TABLE IF EXISTS `belongs_to`;
@@ -56,42 +78,19 @@ CREATE TABLE `property` (
     `property_id`     BIGINT,
     `property_name`   VARCHAR (40),
     `value`           VARCHAR (40),
+    `image`           MEDIUMBLOB DEFAULT NULL,
     `price_increment` NUMERIC (10, 2)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE `property` ADD PRIMARY KEY (`property_id`);
 
--- Image
-DROP TABLE IF EXISTS `image`;
-
-CREATE TABLE `image` (
-    `image_id` BIGINT,
-    `content`  MEDIUMBLOB
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-ALTER TABLE `image` ADD PRIMARY KEY (`image_id`);
-
 -- Variant
-DROP TABLE IF EXISTS `variant`;
-
 CREATE TABLE `variant` (
     `variant_id` BIGINT,
     `weight`     NUMERIC (5, 2)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE `variant` ADD PRIMARY KEY (`variant_id`);
-
--- Variant Image
-DROP TABLE IF EXISTS `variant_image`;
-
-CREATE TABLE `variant_image` (
-    `image_id`   BIGINT,
-    `variant_id` BIGINT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-ALTER TABLE `variant_image` ADD PRIMARY KEY (`image_id`);
-ALTER TABLE `variant_image` ADD FOREIGN KEY (`variant_id`) REFERENCES `variant` (`variant_id`) ON DELETE CASCADE;
-ALTER TABLE `variant_image` ADD FOREIGN KEY (`image_id`) REFERENCES `image` (`image_id`) ON DELETE CASCADE;
 
 -- Varies, based on
 DROP TABLE IF EXISTS `varies_on`;

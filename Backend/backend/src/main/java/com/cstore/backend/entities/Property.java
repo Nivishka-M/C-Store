@@ -18,6 +18,9 @@ public class Property {
     @Column(name = "value", length = 40)
     private String value;
 
+    @Column(name = "image")
+    private byte[] image;
+
     @Column(name = "price_increment", precision = 10, scale = 2)
     private BigDecimal priceIncrement;
 
@@ -43,6 +46,14 @@ public class Property {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public BigDecimal getPriceIncrement() {

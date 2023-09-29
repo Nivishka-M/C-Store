@@ -5,8 +5,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "variant_image", schema = "cstore", indexes = {@Index(name = "variant_id", columnList = "variant_id")})
-public class VariantImage {
+@Table(name = "product_image", schema = "cstore", indexes = {@Index(name = "product_id", columnList = "product_id")})
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id", nullable = false)
@@ -20,8 +20,8 @@ public class VariantImage {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "variant_id")
-    private Variant variant;
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Long getId() {
         return id;
@@ -39,11 +39,11 @@ public class VariantImage {
         this.image = image;
     }
 
-    public Variant getVariant() {
-        return variant;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setVariant(Variant variant) {
-        this.variant = variant;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
