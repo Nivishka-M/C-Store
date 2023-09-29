@@ -9,38 +9,38 @@ import java.util.Objects;
 
 @Embeddable
 public class VariesOnId implements Serializable {
-    private static final long serialVersionUID = 259573109890196546L;
+    private static final long serialVersionUID = 7792216859840206269L;
     @Column(name = "product_id", nullable = false)
-    private Integer productId;
-
-    @Column(name = "variant_id", nullable = false)
-    private Integer variantId;
+    private Long productId;
 
     @Column(name = "property_id", nullable = false)
-    private Integer propertyId;
+    private Long propertyId;
 
-    public Integer getProductId() {
+    @Column(name = "variant_id", nullable = false)
+    private Long variantId;
+
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public Integer getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(Integer variantId) {
-        this.variantId = variantId;
-    }
-
-    public Integer getPropertyId() {
+    public Long getPropertyId() {
         return propertyId;
     }
 
-    public void setPropertyId(Integer propertyId) {
+    public void setPropertyId(Long propertyId) {
         this.propertyId = propertyId;
+    }
+
+    public Long getVariantId() {
+        return variantId;
+    }
+
+    public void setVariantId(Long variantId) {
+        this.variantId = variantId;
     }
 
     @Override
@@ -57,5 +57,4 @@ public class VariesOnId implements Serializable {
     public int hashCode() {
         return Objects.hash(productId, variantId, propertyId);
     }
-
 }

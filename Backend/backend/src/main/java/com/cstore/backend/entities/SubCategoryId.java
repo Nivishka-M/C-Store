@@ -9,27 +9,27 @@ import java.util.Objects;
 
 @Embeddable
 public class SubCategoryId implements Serializable {
-    private static final long serialVersionUID = 6149791018122282874L;
+    private static final long serialVersionUID = -5125445457141907130L;
     @Column(name = "category_id", nullable = false)
-    private int categoryId;
+    private Long categoryId;
 
-    @Column(name = "super_category_id", nullable = false)
-    private int superCategoryId;
+    @Column(name = "sub_category_id", nullable = false)
+    private Long subCategoryId;
 
-    public int getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
-    public int getSuperCategoryId() {
-        return superCategoryId;
+    public Long getSubCategoryId() {
+        return subCategoryId;
     }
 
-    public void setSuperCategoryId(int superCategoryId) {
-        this.superCategoryId = superCategoryId;
+    public void setSubCategoryId(Long subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     @Override
@@ -37,12 +37,12 @@ public class SubCategoryId implements Serializable {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         SubCategoryId entity = (SubCategoryId) o;
-        return Objects.equals(this.superCategoryId, entity.superCategoryId) &&
+        return Objects.equals(this.subCategoryId, entity.subCategoryId) &&
                 Objects.equals(this.categoryId, entity.categoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(superCategoryId, categoryId);
+        return Objects.hash(subCategoryId, categoryId);
     }
 }

@@ -3,22 +3,22 @@ package com.cstore.backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "image")
+@Table(name = "image", schema = "cstore")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Lob
     @Column(name = "content")
     private byte[] content;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

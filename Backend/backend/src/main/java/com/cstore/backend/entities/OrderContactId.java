@@ -9,26 +9,26 @@ import java.util.Objects;
 
 @Embeddable
 public class OrderContactId implements Serializable {
-    private static final long serialVersionUID = -4461710058848201778L;
+    private static final long serialVersionUID = 6863286061375131948L;
     @Column(name = "order_id", nullable = false)
-    private int orderId;
+    private Long orderId;
 
     @Column(name = "telephone_number", nullable = false)
-    private int telephoneNumber;
+    private Integer telephoneNumber;
 
-    public int getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public int getTelephoneNumber() {
+    public Integer getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(Integer telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
@@ -45,5 +45,4 @@ public class OrderContactId implements Serializable {
     public int hashCode() {
         return Objects.hash(telephoneNumber, orderId);
     }
-
 }

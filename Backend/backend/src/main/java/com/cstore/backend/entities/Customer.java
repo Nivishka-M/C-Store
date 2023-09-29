@@ -3,21 +3,21 @@ package com.cstore.backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customer", schema = "cstore")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "type", length = 10)
     private String type;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

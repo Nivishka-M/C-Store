@@ -3,7 +3,7 @@ package com.cstore.backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "sub_category")
+@Table(name = "sub_category", schema = "cstore", indexes = {@Index(name = "sub_category_id", columnList = "sub_category_id")})
 public class SubCategory {
     @EmbeddedId
     private SubCategoryId id;
@@ -13,10 +13,10 @@ public class SubCategory {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @MapsId("superCategoryId")
+    @MapsId("subCategoryId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "super_category_id", nullable = false)
-    private Category superCategory;
+    @JoinColumn(name = "sub_category_id", nullable = false)
+    private Category subCategory;
 
     public SubCategoryId getId() {
         return id;
@@ -34,11 +34,11 @@ public class SubCategory {
         this.category = category;
     }
 
-    public Category getSuperCategory() {
-        return superCategory;
+    public Category getSubCategory() {
+        return subCategory;
     }
 
-    public void setSuperCategory(Category superCategory) {
-        this.superCategory = superCategory;
+    public void setSubCategory(Category subCategory) {
+        this.subCategory = subCategory;
     }
 }

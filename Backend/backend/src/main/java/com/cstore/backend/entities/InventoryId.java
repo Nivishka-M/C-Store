@@ -9,26 +9,26 @@ import java.util.Objects;
 
 @Embeddable
 public class InventoryId implements Serializable {
-    private static final long serialVersionUID = -1666668776138562580L;
+    private static final long serialVersionUID = 1439924339189163628L;
     @Column(name = "warehouse_id", nullable = false)
-    private int warehouseId;
+    private Long warehouseId;
 
     @Column(name = "variant_id", nullable = false)
-    private int variantId;
+    private Long variantId;
 
-    public int getWarehouseId() {
+    public Long getWarehouseId() {
         return warehouseId;
     }
 
-    public void setWarehouseId(int warehouseId) {
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 
-    public int getVariantId() {
+    public Long getVariantId() {
         return variantId;
     }
 
-    public void setVariantId(int variantId) {
+    public void setVariantId(Long variantId) {
         this.variantId = variantId;
     }
 
@@ -45,5 +45,4 @@ public class InventoryId implements Serializable {
     public int hashCode() {
         return Objects.hash(warehouseId, variantId);
     }
-
 }

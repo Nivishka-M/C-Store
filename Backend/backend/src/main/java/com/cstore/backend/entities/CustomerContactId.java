@@ -9,26 +9,26 @@ import java.util.Objects;
 
 @Embeddable
 public class CustomerContactId implements Serializable {
-    private static final long serialVersionUID = 4955077205956448862L;
+    private static final long serialVersionUID = 4535620079918483570L;
     @Column(name = "customer_id", nullable = false)
-    private int customerId;
+    private Long customerId;
 
     @Column(name = "telephone_number", nullable = false)
-    private int telephoneNumber;
+    private Integer telephoneNumber;
 
-    public int getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public int getTelephoneNumber() {
+    public Integer getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(Integer telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

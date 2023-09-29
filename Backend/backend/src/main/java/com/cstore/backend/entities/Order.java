@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "`order`")
+@Table(name = "`order`", schema = "cstore")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "date")
     private Instant date;
@@ -19,10 +19,10 @@ public class Order {
     @Column(name = "total_payment", precision = 12, scale = 2)
     private BigDecimal totalPayment;
 
-    @Column(name = "payment_method", length = 10)
+    @Column(name = "payment_method", length = 20)
     private String paymentMethod;
 
-    @Column(name = "delivery_method", length = 20)
+    @Column(name = "delivery_method", length = 40)
     private String deliveryMethod;
 
     @Column(name = "email", length = 60)
@@ -31,20 +31,20 @@ public class Order {
     @Column(name = "street_number", length = 10)
     private String streetNumber;
 
-    @Column(name = "street_name", length = 30)
+    @Column(name = "street_name", length = 60)
     private String streetName;
 
-    @Column(name = "city", length = 20)
+    @Column(name = "city", length = 40)
     private String city;
 
     @Column(name = "zipcode")
-    private int zipcode;
+    private Integer zipcode;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -112,11 +112,11 @@ public class Order {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public Integer getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
 }

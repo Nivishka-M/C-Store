@@ -1,9 +1,11 @@
 package com.cstore.backend.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "warehouse_contact")
+@Table(name = "warehouse_contact", schema = "cstore", indexes = {@Index(name = "warehouse_id", columnList = "warehouse_id")})
 public class WarehouseContact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +13,7 @@ public class WarehouseContact {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 

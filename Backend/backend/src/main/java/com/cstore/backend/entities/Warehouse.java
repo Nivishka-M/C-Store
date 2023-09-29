@@ -3,30 +3,30 @@ package com.cstore.backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "warehouse")
+@Table(name = "warehouse", schema = "cstore")
 public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "warehouse_id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "street_number", length = 10)
     private String streetNumber;
 
-    @Column(name = "street_name", length = 30)
+    @Column(name = "street_name", length = 60)
     private String streetName;
 
-    @Column(name = "city", length = 20)
+    @Column(name = "city", length = 40)
     private String city;
 
-    @Column(name = "zipcode", nullable = false)
-    private int zipcode;
+    @Column(name = "zipcode")
+    private Integer zipcode;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class Warehouse {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public Integer getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
 }

@@ -9,37 +9,37 @@ import java.util.Objects;
 
 @Embeddable
 public class OrderItemId implements Serializable {
-    private static final long serialVersionUID = -6140279201452068834L;
+    private static final long serialVersionUID = 3615380637387181036L;
     @Column(name = "order_id", nullable = false)
-    private int orderId;
+    private Long orderId;
 
     @Column(name = "variant_id", nullable = false)
-    private int variantId;
+    private Long variantId;
 
     @Column(name = "warehouse_id", nullable = false)
-    private int warehouseId;
+    private Long warehouseId;
 
-    public int getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public int getVariantId() {
+    public Long getVariantId() {
         return variantId;
     }
 
-    public void setVariantId(int variantId) {
+    public void setVariantId(Long variantId) {
         this.variantId = variantId;
     }
 
-    public int getWarehouseId() {
+    public Long getWarehouseId() {
         return warehouseId;
     }
 
-    public void setWarehouseId(int warehouseId) {
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 

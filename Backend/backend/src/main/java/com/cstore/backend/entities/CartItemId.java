@@ -9,26 +9,26 @@ import java.util.Objects;
 
 @Embeddable
 public class CartItemId implements Serializable {
-    private static final long serialVersionUID = -6280581121244514679L;
+    private static final long serialVersionUID = 529173796380709797L;
     @Column(name = "customer_id", nullable = false)
-    private int customerId;
+    private Long customerId;
 
     @Column(name = "variant_id", nullable = false)
-    private int variantId;
+    private Long variantId;
 
-    public int getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public int getVariantId() {
+    public Long getVariantId() {
         return variantId;
     }
 
-    public void setVariantId(int variantId) {
+    public void setVariantId(Long variantId) {
         this.variantId = variantId;
     }
 

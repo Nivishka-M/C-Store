@@ -1,36 +1,39 @@
 package com.cstore.backend.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "customer_address")
+@Table(name = "customer_address", schema = "cstore", indexes = {@Index(name = "customer_id", columnList = "customer_id")})
 public class CustomerAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id", nullable = false)
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @Column(name = "street_number", length = 10)
     private String streetNumber;
 
-    @Column(name = "street_name", length = 30)
+    @Column(name = "street_name", length = 60)
     private String streetName;
 
-    @Column(name = "city", length = 20)
+    @Column(name = "city", length = 40)
     private String city;
 
-    @Column(name = "zipcode", nullable = false)
-    private int zipcode;
+    @Column(name = "zipcode")
+    private Integer zipcode;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,11 +69,11 @@ public class CustomerAddress {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public Integer getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
 }

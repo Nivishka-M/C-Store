@@ -1,22 +1,25 @@
 package com.cstore.backend.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "belongs_to")
+@Table(name = "belongs_to", schema = "cstore", indexes = {@Index(name = "product_id", columnList = "product_id")})
 public class BelongsTo {
     @EmbeddedId
     private BelongsToId id;
-
-    @MapsId("productId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 
     @MapsId("categoryId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    @MapsId("productId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     public BelongsToId getId() {
         return id;
@@ -26,19 +29,19 @@ public class BelongsTo {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

@@ -3,12 +3,11 @@ package com.cstore.backend.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "category", schema = "cstore")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "category_name", length = 40)
     private String categoryName;
@@ -17,11 +16,11 @@ public class Category {
     @Column(name = "category_description")
     private String categoryDescription;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

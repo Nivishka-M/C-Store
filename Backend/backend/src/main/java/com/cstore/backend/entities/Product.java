@@ -5,17 +5,17 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product", schema = "cstore")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
-    private int id;
+    private Long id;
 
-    @Column(name = "product_name", length = 60)
+    @Column(name = "product_name", length = 100)
     private String productName;
 
-    @Column(name = "brand", length = 60)
+    @Column(name = "brand", length = 40)
     private String brand;
 
     @Lob
@@ -25,11 +25,11 @@ public class Product {
     @Column(name = "base_price", precision = 10, scale = 2)
     private BigDecimal basePrice;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

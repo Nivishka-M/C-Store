@@ -1,15 +1,18 @@
 package com.cstore.backend.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "order_item")
+@Table(name = "order_item", schema = "cstore", indexes = {@Index(name = "variant_id", columnList = "variant_id"), @Index(name = "warehouse_id", columnList = "warehouse_id")})
 public class OrderItem {
     @EmbeddedId
     private OrderItemId id;
 
     @MapsId("orderId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
@@ -24,7 +27,7 @@ public class OrderItem {
     private Warehouse warehouse;
 
     @Column(name = "count")
-    private int count;
+    private Integer count;
 
     public OrderItemId getId() {
         return id;
@@ -58,11 +61,11 @@ public class OrderItem {
         this.warehouse = warehouse;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

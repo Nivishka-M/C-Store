@@ -5,21 +5,21 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "variant")
+@Table(name = "variant", schema = "cstore")
 public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "variant_id", nullable = false)
-    private int id;
+    private Long id;
 
-    @Column(name = "weight", precision = 7, scale = 4)
+    @Column(name = "weight", precision = 5, scale = 2)
     private BigDecimal weight;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

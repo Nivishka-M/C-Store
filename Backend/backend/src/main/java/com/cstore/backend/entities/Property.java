@@ -5,27 +5,27 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "property")
+@Table(name = "property", schema = "cstore")
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id", nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "property_name", length = 20)
+    @Column(name = "property_name", length = 40)
     private String propertyName;
 
-    @Column(name = "value", length = 20)
+    @Column(name = "value", length = 40)
     private String value;
 
     @Column(name = "price_increment", precision = 10, scale = 2)
     private BigDecimal priceIncrement;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

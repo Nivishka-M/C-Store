@@ -1,24 +1,27 @@
 package com.cstore.backend.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "registered_customer")
+@Table(name = "registered_customer", schema = "cstore")
 public class RegisteredCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
-    private int id;
+    private Long id;
 
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @Column(name = "email", length = 60)
     private String email;
 
-    @Column(name = "password", length = 40)
+    @Column(name = "password", length = 60)
     private String password;
 
     @Column(name = "first_name", length = 20)
@@ -27,11 +30,11 @@ public class RegisteredCustomer {
     @Column(name = "last_name", length = 20)
     private String lastName;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

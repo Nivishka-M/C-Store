@@ -9,27 +9,27 @@ import java.util.Objects;
 
 @Embeddable
 public class BelongsToId implements Serializable {
-    private static final long serialVersionUID = -8276855657839107497L;
-    @Column(name = "product_id", nullable = false)
-    private Integer productId;
-
+    private static final long serialVersionUID = -1525545991379678356L;
     @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+    private Long categoryId;
 
-    public Integer getProductId() {
-        return productId;
-    }
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     @Override
@@ -45,5 +45,4 @@ public class BelongsToId implements Serializable {
     public int hashCode() {
         return Objects.hash(productId, categoryId);
     }
-
 }
