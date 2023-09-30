@@ -40,15 +40,16 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
     `product_id`   BIGINT,
     `product_name` VARCHAR (100),
+    `base_price`   NUMERIC (10, 2),
     `brand`        VARCHAR (40),
     `description`  TEXT,
-    `base_price`   NUMERIC (10, 2)
+    `main_image`   MEDIUMBLOB
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE `product` ADD PRIMARY KEY (`product_id`);
 
 -- Product Image
-DROP TABLE IF EXISTS `variant_image`;
+DROP TABLE IF EXISTS `product_image`;
 
 CREATE TABLE `product_image` (
     `image_id`   BIGINT,
@@ -85,6 +86,8 @@ CREATE TABLE `property` (
 ALTER TABLE `property` ADD PRIMARY KEY (`property_id`);
 
 -- Variant
+DROP TABLE IF EXISTS `variant`;
+
 CREATE TABLE `variant` (
     `variant_id` BIGINT,
     `weight`     NUMERIC (5, 2)
@@ -261,3 +264,21 @@ ALTER TABLE `order_item` ADD PRIMARY KEY (`order_id`, `variant_id`, `warehouse_i
 ALTER TABLE `order_item` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`) ON DELETE CASCADE;
 ALTER TABLE `order_item` ADD FOREIGN KEY (`variant_id`) REFERENCES `variant` (`variant_id`);
 ALTER TABLE `order_item` ADD FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`);
+
+CREATE VIEW v AS
+    SELECT sub_category_id
+    FROM cstore.sub_category
+    WHERE category_id = 1;
+
+-- DROP VIEW v;
+
+SELECT *
+FROM cstore.product
+WHERE product_id IN (SELECT product_id
+                     FROM cstore.belongs_to
+                     WHERE category_id = 1)
+UNION
+SELECT *
+FROM cstore.product
+WHERE product_id IN (SELECT product_id
+                     FROM v LEFT OUTER JOIN cstore.belongs_to ON sub_category_id = category_id);

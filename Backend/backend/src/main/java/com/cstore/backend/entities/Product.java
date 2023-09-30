@@ -15,6 +15,9 @@ public class Product {
     @Column(name = "product_name", length = 100)
     private String productName;
 
+    @Column(name = "base_price", precision = 10, scale = 2)
+    private BigDecimal basePrice;
+
     @Column(name = "brand", length = 40)
     private String brand;
 
@@ -22,8 +25,8 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "base_price", precision = 10, scale = 2)
-    private BigDecimal basePrice;
+    @Column(name = "main_image")
+    private byte[] mainImage;
 
     public Long getId() {
         return id;
@@ -39,6 +42,14 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public BigDecimal getBasePrice() {
+        return basePrice;
+    }
+
+    public void setBasePrice(BigDecimal basePrice) {
+        this.basePrice = basePrice;
     }
 
     public String getBrand() {
@@ -57,11 +68,11 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getBasePrice() {
-        return basePrice;
+    public byte[] getMainImage() {
+        return mainImage;
     }
 
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
+    public void setMainImage(byte[] mainImage) {
+        this.mainImage = mainImage;
     }
 }
