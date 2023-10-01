@@ -44,7 +44,7 @@ public class CustomerController {
     /*
         This method lets register guest customers.
      */
-    @RequestMapping(method = RequestMethod.PUT, path = "/customers/{id}")
+    @RequestMapping(method = RequestMethod.POST, path = "/customers/{id}")
     public Customer registerCustomer(@PathVariable(name = "id", required = true) Long id,
                                      @RequestBody(required = true) RegisteredCustomer registeredCustomer) {
         /* TODO
