@@ -57,8 +57,8 @@ INSERT INTO `sub_category` (`category_id`, `sub_category_id`) VALUES
 
 
 
-SELECT *
-FROM `image`;
+# SELECT *
+# FROM `image`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `product`

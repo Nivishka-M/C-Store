@@ -13,12 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllProducts();
 
     @Modifying
-    @Query(value="CREATE VIEW v AS " +
-                    "SELECT sub_category_id " +
-                    "FROM cstore.sub_category " +
-                    "WHERE category_id = ?1;" +
-
-                 "SELECT * " +
+    @Query(value="SELECT * " +
                  "FROM cstore.product " +
                  "WHERE product_id IN (SELECT product_id " +
                  "                     FROM cstore.belongs_to " +
@@ -27,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                  "SELECT * " +
                  "FROM cstore.product " +
                  "WHERE product_id IN (SELECT product_id " +
-                 "                     FROM v LEFT OUTER JOIN cstore.belongs_to ON sub_category_id = category_id);", nativeQuery=true)
-    List<Product> findAllProductsBelongingTo(Long categoryId);
+                                      "FROM (SELECT sub_category_id "+
+                                            "FROM cstore.sub_category " +
+                                            "WHERE category_id = ?1) as derived LEFT OUTER JOIN cstore.belongs_to ON sub_category_id = category_id);", nativeQuery=true)
+    List<Product> findAllProductsBelongingToCategory(Long categoryId);
 }
