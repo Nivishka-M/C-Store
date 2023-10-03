@@ -1,5 +1,7 @@
 package com.cstore.services;
 
+import com.cstore.exceptions.CustomerAlreadyExistsException;
+import com.cstore.exceptions.InvalidArgumentException;
 import com.cstore.models.Customer;
 import com.cstore.models.RegisteredCustomer;
 import com.cstore.repositories.CustomerRepository;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -18,20 +21,39 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-
     public List<Customer> getAllCustomers() {
-        return null;
+        return customerRepository.getAllCustomers();
     }
 
-    public Customer getCustomerById(Long id) {
-        return null;
+    public Customer getCustomerById(Long customerId) {
+        Optional<Customer> tempCustomer = customerRepository.findById(customerId);
+        Customer customer = null;
+
+        if (tempCustomer.isPresent()) {
+            customer = tempCustomer.get();
+        }
+        return customer;
     }
 
-    public Customer addCustomer(Customer customer) {
-        return null;
+    public Customer joinAsGuest(Customer customer) {
+        if (customer.getId() == null) {
+            customer.setType("Guest");
+            return customerRepository.save(customer);
+        }
+
+        throw new CustomerAlreadyExistsException("Customer with already exists.");
     }
 
-    public Customer registerCustomer(Long id, RegisteredCustomer registeredCustomer) {
+    public Customer register(Long id, RegisteredCustomer registeredCustomer) {
+        if (registeredCustomer.getEmail() == null) {
+            throw new InvalidArgumentException("A valid email address must be provided.");
+        } else if (registeredCustomer.getPassword() == null) {
+            throw new InvalidArgumentException("A valid password must be provided.");
+        } else if (registeredCustomer.getFirstName() == null) {
+            throw new InvalidArgumentException("A valid first name must be provided.");
+        } else if (registeredCustomer.getLastName() == null) {
+            throw new InvalidArgumentException("A valid last name must be provided.");
+        }
         return null;
     }
 

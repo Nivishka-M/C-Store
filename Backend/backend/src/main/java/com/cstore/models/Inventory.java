@@ -8,7 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "inventory", schema = "cstore", indexes = {@Index(name = "variant_id", columnList = "variant_id")})
 public class Inventory {
     @EmbeddedId
-    private InventoryId id;
+    private InventoryId inventoryId;
 
     @MapsId("warehouseId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,12 +28,12 @@ public class Inventory {
     @Column(name = "count")
     private Integer count;
 
-    public InventoryId getId() {
-        return id;
+    public InventoryId getInventoryId() {
+        return inventoryId;
     }
 
-    public void setId(InventoryId id) {
-        this.id = id;
+    public void setInventoryId(InventoryId inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
     public Warehouse getWarehouse() {

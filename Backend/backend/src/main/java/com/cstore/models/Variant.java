@@ -10,17 +10,17 @@ public class Variant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "variant_id", nullable = false)
-    private Long id;
+    private Long variantId;
 
     @Column(name = "weight", precision = 5, scale = 2)
     private BigDecimal weight;
 
-    public Long getId() {
-        return id;
+    public Long getVariantId() {
+        return variantId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setVariantId(Long variantId) {
+        this.variantId = variantId;
     }
 
     public BigDecimal getWeight() {

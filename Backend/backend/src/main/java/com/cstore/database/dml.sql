@@ -34,8 +34,8 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_description`) 
     (8, 'Laptops','All top brands at best price'),
     (9, 'Outdoor electronics' , 'Electronic gadgets used in the outdoors');
 
-# SELECT *
-# FROM `category`;
+SELECT *
+FROM `category`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `sub Category`
@@ -186,9 +186,9 @@ INSERT INTO `inventory` (`warehouse_id`, `variant_id`, `sku`, `count`) VALUES
 --  `customer`
 
 INSERT INTO `customer` (`customer_id`, `type`) VALUES
-    (1, 'registered'),
-    (2, 'registered'),
-    (3, 'guest');
+    (1, 'Registered'),
+    (2, 'Registered'),
+    (3, 'Guest');
 
 # SELECT *
 # FROM `customer`;

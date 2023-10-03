@@ -10,7 +10,7 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id", nullable = false)
-    private Long id;
+    private Long propertyId;
 
     @Column(name = "property_name", length = 40)
     private String propertyName;
@@ -24,12 +24,12 @@ public class Property {
     @Column(name = "price_increment", precision = 10, scale = 2)
     private BigDecimal priceIncrement;
 
-    public Long getId() {
-        return id;
+    public Long getPropertyId() {
+        return propertyId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPropertyId(Long propertyId) {
+        this.propertyId = propertyId;
     }
 
     public String getPropertyName() {

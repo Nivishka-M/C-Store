@@ -143,6 +143,7 @@ CREATE TABLE `customer` (
     `type`        VARCHAR (10),
     PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- Registered Customer
 DROP TABLE IF EXISTS `registered_customer`;
 
@@ -243,24 +244,34 @@ CREATE TABLE `order_item` (
     FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS `order_item`;
-DROP TABLE IF EXISTS `order_contact`;
-DROP TABLE IF EXISTS `order`;
-DROP TABLE IF EXISTS `cart_item`;
-DROP TABLE IF EXISTS `cart`;
-DROP TABLE IF EXISTS `customer_address`;
-DROP TABLE IF EXISTS `customer_contact`;
-DROP TABLE IF EXISTS `registered_customer`;
-DROP TABLE IF EXISTS `customer`;
-DROP TABLE IF EXISTS `inventory`;
-DROP TABLE IF EXISTS `warehouse_contact`;
-DROP TABLE IF EXISTS `warehouse`;
-DROP TABLE IF EXISTS `varies_on`;
-DROP TABLE IF EXISTS `variant`;
-DROP TABLE IF EXISTS `property`;
-DROP TABLE IF EXISTS `belongs_to`;
-DROP TABLE IF EXISTS `product_image`;
-DROP TABLE IF EXISTS `product`;
-DROP TABLE IF EXISTS `image`;
-DROP TABLE IF EXISTS `sub_category`;
-DROP TABLE IF EXISTS `category`;
+# DROP TABLE IF EXISTS `order_item`;
+# DROP TABLE IF EXISTS `order_contact`;
+# DROP TABLE IF EXISTS `order`;
+# DROP TABLE IF EXISTS `cart_item`;
+# DROP TABLE IF EXISTS `cart`;
+# DROP TABLE IF EXISTS `customer_address`;
+# DROP TABLE IF EXISTS `customer_contact`;
+# DROP TABLE IF EXISTS `registered_customer`;
+# DROP TABLE IF EXISTS `customer`;
+# DROP TABLE IF EXISTS `inventory`;
+# DROP TABLE IF EXISTS `warehouse_contact`;
+# DROP TABLE IF EXISTS `warehouse`;
+# DROP TABLE IF EXISTS `varies_on`;
+# DROP TABLE IF EXISTS `variant`;
+# DROP TABLE IF EXISTS `property`;
+# DROP TABLE IF EXISTS `belongs_to`;
+# DROP TABLE IF EXISTS `product_image`;
+# DROP TABLE IF EXISTS `product`;
+# DROP TABLE IF EXISTS `image`;
+# DROP TABLE IF EXISTS `sub_category`;
+# DROP TABLE IF EXISTS `category`;
+
+CREATE VIEW `base_category` AS
+    SELECT *
+    FROM `category`
+    WHERE `category_id` NOT IN (SELECT DISTINCT `sub_category_id`
+                                FROM sub_category);
+
+SELECT * FROM `base_category`;
+
+DROP VIEW IF EXISTS `base_category`;

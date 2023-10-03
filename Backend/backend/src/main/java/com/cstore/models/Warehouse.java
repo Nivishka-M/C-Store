@@ -8,7 +8,7 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "warehouse_id", nullable = false)
-    private Long id;
+    private Long warehouseId;
 
     @Column(name = "street_number", length = 10)
     private String streetNumber;
@@ -22,12 +22,12 @@ public class Warehouse {
     @Column(name = "zipcode")
     private Integer zipcode;
 
-    public Long getId() {
-        return id;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setWarehouseId(Long warehouseId) {
+        this.warehouseId = warehouseId;
     }
 
     public String getStreetNumber() {

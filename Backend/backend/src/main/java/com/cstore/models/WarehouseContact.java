@@ -10,19 +10,19 @@ public class WarehouseContact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "telephone_number", nullable = false)
-    private Integer id;
+    private Integer telephoneNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
 
-    public Integer getId() {
-        return id;
+    public Integer getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTelephoneNumber(Integer telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public Warehouse getWarehouse() {
