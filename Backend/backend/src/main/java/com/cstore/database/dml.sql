@@ -34,8 +34,8 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_description`) 
     (8, 'Laptops','All top brands at best price'),
     (9, 'Outdoor electronics' , 'Electronic gadgets used in the outdoors');
 
-SELECT *
-FROM `category`;
+# SELECT *
+# FROM `category`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `sub Category`

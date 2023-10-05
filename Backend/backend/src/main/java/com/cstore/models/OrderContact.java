@@ -8,7 +8,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "order_contact", schema = "cstore")
 public class OrderContact {
     @EmbeddedId
-    private OrderContactId id;
+    private OrderContactId orderContactId;
 
     @MapsId("orderId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -16,12 +16,12 @@ public class OrderContact {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    public OrderContactId getId() {
-        return id;
+    public OrderContactId getOrderContactId() {
+        return orderContactId;
     }
 
-    public void setId(OrderContactId id) {
-        this.id = id;
+    public void setOrderContactId(OrderContactId orderContactId) {
+        this.orderContactId = orderContactId;
     }
 
     public Order getOrder() {

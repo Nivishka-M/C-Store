@@ -1,30 +1,88 @@
 package com.cstore.services;
 
-import com.cstore.daos.category.CategoryDAO;
+import com.cstore.daos.category.CategoryDao;
+import com.cstore.exceptions.CategoryAlreadyExistsException;
+import com.cstore.exceptions.CategoryNotFoundException;
 import com.cstore.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
-    private final CategoryDAO categoryDAO;
+    private final CategoryDao categoryDao;
 
     @Autowired
-    public CategoryService(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public CategoryService(CategoryDao categoryDao) {
+        this.categoryDao = categoryDao;
     }
 
-    public List<Category> getAllBaseCategories() throws SQLException {
-        return categoryDAO.getAllBaseCategories();
-
+    public List<Category> getAllCategories() {
+        return categoryDao.getAllCategories();
     }
 
-    public List<Category> getAllSubCategories(Long categoryId) throws Exception {
-        return categoryDAO.getAllSubCategories(categoryId);
+    private Category getCategory(Category unknown) throws SQLException {
+        Optional<Category> category = categoryDao.findCategory(unknown);
+
+        return category.orElse(null);
     }
+
+    public Category getCategoryById(Long categoryId) {
+        Optional<Category> category = categoryDao.findById(categoryId);
+
+        if (category.isEmpty()) {
+            throw new CategoryNotFoundException("Category with id " + categoryId + " not found.");
+        }
+        return category.get();
+    }
+
+    public Category addNewCategory(Category category) throws SQLException {
+        try {
+            if (getCategory(category) == null) {
+                try {
+                    categoryDao.save(category);
+
+                    try {
+                        return getCategory(category);
+                    } catch (SQLException sqe) {
+                        throw new SQLException("Category inserted but unable to retrieve.");
+                    }
+                } catch (SQLException sqe) {
+                    throw new SQLException("Error while inserting the category.");
+                }
+            } else {
+                throw new CategoryAlreadyExistsException("Category already exists.");
+            }
+        } catch (SQLException sqe) {
+            throw new SQLException("Unable to check for the pre-existence of category.");
+        }
+    }
+
+    public Category updateCategory(Long categoryId, Map<String, Object> newDetails) throws CategoryNotFoundException, SQLException {
+        Category category = getCategoryById(categoryId);
+
+        if (newDetails.get("categoryName") != null) {
+            category.setCategoryName((String) newDetails.get("categoryName"));
+        }
+        if (newDetails.get("categoryDescription") != null) {
+            category.setCategoryDescription((String) newDetails.get("categoryDescription"));
+        }
+
+        categoryDao.update(category);
+        return category;
+    }
+
+
+
+    public void deleteCategory(Long categoryId) throws SQLException {
+        categoryDao.delete(categoryId);
+    }
+
+
 
     /*private List<ProductDTO> convert(Category category) {
         List<BelongsTo> belongings = belongsToRepository.findByCategory(category);

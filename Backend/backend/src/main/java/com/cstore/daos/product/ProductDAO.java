@@ -7,7 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductDAO {
-    List<Product> getAllProducts() throws SQLException;
+    Optional<Product> findProduct(Product unknown) throws SQLException;
 
-    Optional<Product> getProductById(Long productId) throws SQLException;
+    List<Product> findAll();
+
+    Optional<Product> findById(Long productId);
+
+    List<Product> findByName(String productName) throws SQLException;
+
+    void save(Product product) throws SQLException;
+
+    List<Product> findAllByCategoryId(Long categoryId) throws SQLException;
 }

@@ -1,4 +1,4 @@
-package com.cstore.controllers;
+package com.cstore.controller;
 
 import com.cstore.models.Customer;
 import com.cstore.models.RegisteredCustomer;

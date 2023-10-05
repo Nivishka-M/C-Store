@@ -18,8 +18,8 @@ CREATE TABLE `sub_category` (
     `sub_category_id` BIGINT,
     CONSTRAINT CHECK (`category_id` != `sub_category_id`),
     PRIMARY KEY (`category_id`, `sub_category_id`),
-    FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-    FOREIGN KEY (`sub_category_id`) REFERENCES `category` (`category_id`)
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`sub_category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Image
@@ -62,7 +62,7 @@ CREATE TABLE `belongs_to` (
     `category_id` BIGINT,
     `product_id`  BIGINT,
     PRIMARY KEY (`category_id`, `product_id`),
-    FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+    FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE,
     FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -272,6 +272,5 @@ CREATE VIEW `base_category` AS
     WHERE `category_id` NOT IN (SELECT DISTINCT `sub_category_id`
                                 FROM sub_category);
 
-SELECT * FROM `base_category`;
-
-DROP VIEW IF EXISTS `base_category`;
+# SELECT * FROM `base_category`;
+# DROP VIEW IF EXISTS `base_category`;

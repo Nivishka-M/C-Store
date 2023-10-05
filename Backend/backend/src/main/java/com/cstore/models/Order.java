@@ -11,7 +11,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Long id;
+    private Long orderId;
 
     @Column(name = "date")
     private Instant date;
@@ -40,12 +40,12 @@ public class Order {
     @Column(name = "zipcode")
     private Integer zipcode;
 
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Instant getDate() {

@@ -1,4 +1,4 @@
-package com.cstore.controllers;
+package com.cstore.controller;
 
 import com.cstore.dtos.WarehouseDTO;
 import com.cstore.dtos.WarehouseVariantDTO;

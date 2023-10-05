@@ -1,31 +1,78 @@
 package com.cstore.services;
 
+import com.cstore.daos.order.OrderDao;
+import com.cstore.daos.ordercontact.OrderContactDao;
+import com.cstore.dtos.OrderDTO;
+import com.cstore.exceptions.OrderNotFoundException;
 import com.cstore.models.Order;
-import com.cstore.repositories.OrderRepository;
+import com.cstore.models.OrderContact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
-    private final OrderRepository orderRepository;
+    private final OrderContactDao orderContactDao;
+    private final OrderDao orderDao;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderService(OrderContactDao orderContactDao, OrderDao orderDao) {
+        this.orderContactDao = orderContactDao;
+        this.orderDao = orderDao;
     }
 
-    public List<Order> getAllOrders(Long customerId) {
-        return null;
+    private OrderDTO convert(Order order) {
+        List<OrderContact> orderContacts = orderContactDao.findByOrder(order);
+        OrderDTO orderDTO = new OrderDTO();
+        List<Integer> telephoneNumbers = new ArrayList<>();
+
+        orderDTO.setOrderId(order.getOrderId());
+        orderDTO.setDate(order.getDate());
+        orderDTO.setTotalPayment(order.getTotalPayment());
+        orderDTO.setPaymentMethod(order.getPaymentMethod());
+        orderDTO.setDeliveryMethod(order.getDeliveryMethod());
+        orderDTO.setEmail(order.getEmail());
+        orderDTO.setStreetNumber(order.getStreetNumber());
+        orderDTO.setStreetName(order.getStreetName());
+        orderDTO.setCity(order.getCity());
+        orderDTO.setZipCode(order.getZipcode());
+
+        for (OrderContact orderContact : orderContacts) {
+            telephoneNumbers.add(orderContact.getOrderContactId().getTelephoneNumber());
+        }
+        orderDTO.setTelephoneNumbers(telephoneNumbers);
+
+        return orderDTO;
     }
 
-    public Order addOrderDetails(Long customerId) {
-        return null;
+    public List<OrderDTO> getAllOrders() {
+        return orderDao.findAll()
+                .stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
     }
 
-    public Order placeOrder(Long customerId, Long orderId, Map<String, Object> orderDetails) {
-        return null;
+    public OrderDTO getOrderById(Long orderId) {
+        Optional<Order> order = orderDao.findById(orderId);
+
+        if (order.isEmpty()) {
+            throw new OrderNotFoundException("Order with id " + orderId + " not found.");
+        } else {
+            return convert(order.get());
+        }
+    }
+
+    public void deleteAllOrders() throws SQLException {
+        orderDao.deleteAll();
+    }
+
+    public void deleteOrderByID(Long orderId) throws SQLException {
+        orderDao.deleteByID(orderId);
     }
 }

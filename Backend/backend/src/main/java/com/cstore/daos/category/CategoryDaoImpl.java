@@ -1,0 +1,203 @@
+package com.cstore.daos.category;
+
+import com.cstore.models.Category;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class CategoryDaoImpl implements CategoryDao {
+    String url = "jdbc:mysql://localhost:3306/cstore";
+    String username = "cadmin";
+    String password = "cstore_GRP28_CSE21";
+
+    Logger logger = LoggerFactory.getLogger(CategoryDaoImpl.class);
+
+    @Override
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<Category>();
+        String sql = "SELECT * " +
+                     "FROM `category`;";
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sql);) {
+            while (resultSet.next()) {
+                Category category = new Category();
+
+                category.setCategoryId(resultSet.getLong("category_id"));
+                category.setCategoryName(resultSet.getString("category_name"));
+                category.setCategoryDescription(resultSet.getString("category_description"));
+
+                categories.add(category);
+            }
+
+            return categories;
+        } catch (SQLException sqe) {
+            logger.error("Error while fetching categories from the database.", sqe);
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Optional<Category> findCategory(Category unknown) throws SQLException {
+        String sql = "SELECT * " +
+                     "FROM `category` " +
+                     "WHERE `category_name` = ? AND `category_description` = ?;";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, unknown.getCategoryName());
+        preparedStatement.setString(2, unknown.getCategoryDescription());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            unknown.setCategoryId(resultSet.getLong("category_id"));
+
+            return Optional.of(unknown);
+        } else {
+            return Optional.empty();
+        }
+
+    }
+
+    @Override
+    public Optional<Category> findById(Long categoryId) {
+        Category category = new Category();
+        String sql = "SELECT * " +
+                     "FROM `category` " +
+                     "WHERE `category_id` = ?;";
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setLong(1, categoryId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery();) {
+                if (resultSet.next()) {
+                    category.setCategoryId(resultSet.getLong("category_id"));
+                    category.setCategoryName(resultSet.getString("category_name"));
+                    category.setCategoryDescription(resultSet.getString("category_description"));
+
+                    return Optional.of(category);
+                } else {
+                    return Optional.empty();
+                }
+            }
+        } catch (SQLException sqe) {
+            logger.error("Error while fetching the category from the database.", sqe);
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void save(Category category) throws SQLException {;
+        String sql = "INSERT INTO `category`(`category_name`, `category_description`) VALUES(?, ?);";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, category.getCategoryName());
+        preparedStatement.setString(2, category.getCategoryDescription());
+
+        preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Override
+    public void update(Category category) throws SQLException {
+        String sql = "UPDATE `category` " +
+                     "SET `category_name` = ?, `category_description` = ? " +
+                     "WHERE `category_id` = ?;";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, category.getCategoryName());
+        preparedStatement.setString(2, category.getCategoryDescription());
+        preparedStatement.setLong(3, category.getCategoryId());
+
+        preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Override
+    public void delete(Long categoryId) throws SQLException {
+        String sql = "DELETE FROM `category` " +
+                     "WHERE `category_id` = ?;";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        preparedStatement.setLong(1, categoryId);
+
+        preparedStatement.executeUpdate();
+
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Override
+    public List<Category> findAllBaseCategories() throws SQLException {
+        List<Category> baseCategories = new ArrayList<Category>();
+        String sql = "SELECT * " +
+                     "FROM `base_category`;";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            Category category = new Category();
+
+            category.setCategoryId(resultSet.getLong("category_id"));
+            category.setCategoryName(resultSet.getString("category_name"));
+            category.setCategoryDescription(resultSet.getString("category_description"));
+
+            baseCategories.add(category);
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+        return baseCategories;
+    }
+
+    @Override
+    public List<Category> findAllDirectSubCategories(Long categoryId) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, username, password);
+        List<Category> subCategories = new ArrayList<Category>();
+        String sql = "SELECT * " +
+                     "FROM `category` " +
+                     "WHERE `category_id` IN (SELECT `sub_category_id` " +
+                                             "FROM `sub_category` " +
+                                             "WHERE `category_id` = ?);";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setLong(1, categoryId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            Category category = new Category();
+
+            category.setCategoryId(resultSet.getLong("category_id"));
+            category.setCategoryName(resultSet.getString("category_name"));
+            category.setCategoryDescription(resultSet.getString("category_description"));
+
+            subCategories.add(category);
+        }
+
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return subCategories;
+    }
+}

@@ -1,4 +1,4 @@
-package com.cstore.controllers;
+package com.cstore.controller;
 
 import com.cstore.models.Cart;
 import com.cstore.services.CartService;
