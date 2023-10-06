@@ -5,6 +5,6 @@ import com.cstore.models.VariesOn;
 
 import java.util.List;
 
-public interface VariesOnDao {
+public interface VariesOnDAO {
     List<VariesOn> findByProduct(Product product);
 }

@@ -18,7 +18,7 @@ public class Cart {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private User user;
 
     @Column(name = "total_price", precision = 12, scale = 2)
     private BigDecimal totalPrice;
@@ -31,12 +31,12 @@ public class Cart {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getCustomer() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(User user) {
+        this.user = user;
     }
 
     public BigDecimal getTotalPrice() {

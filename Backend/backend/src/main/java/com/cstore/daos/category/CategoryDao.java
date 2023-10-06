@@ -22,4 +22,6 @@ public interface CategoryDao {
     List<Category> findAllBaseCategories() throws SQLException;
 
     List<Category> findAllDirectSubCategories(Long categoryId) throws SQLException;
+
+    List<Category> findByProductId(Long productId);
 }

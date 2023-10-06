@@ -10,8 +10,8 @@ public class Image {
     @Column(name = "image_id", nullable = false)
     private Long id;
 
-    @Column(name = "content")
-    private byte[] content;
+    @Column(name = "url")
+    private String url;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class Image {
         this.id = id;
     }
 
-    public byte[] getContent() {
-        return content;
+    public String getUrl() {
+        return url;
     }
 
-    public void setContent(byte[] content) {
-        this.content = content;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

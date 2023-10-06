@@ -1,6 +1,5 @@
-package com.cstore.category.browsing;
+package com.cstore.domain.category.browsing;
 
-import com.cstore.dtos.PropertyDto;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,7 +12,6 @@ public class ProductDTO {
     private String productName;
     private BigDecimal basePrice;
     private String brand;
-    private String description;
-    private byte[] mainImage;
-    private Map<String, List<PropertyDTO>> properties;
+    private String imageUrl;
+    private Map<String, List<String>> properties;
 }

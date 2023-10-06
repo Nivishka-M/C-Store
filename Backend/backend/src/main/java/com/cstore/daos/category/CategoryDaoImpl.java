@@ -1,8 +1,11 @@
 package com.cstore.daos.category;
 
 import com.cstore.models.Category;
+import com.cstore.models.Property;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -12,11 +15,16 @@ import java.util.Optional;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
+    private final JdbcTemplate jdbcTemplate;
     String url = "jdbc:mysql://localhost:3306/cstore";
     String username = "cadmin";
     String password = "cstore_GRP28_CSE21";
 
     Logger logger = LoggerFactory.getLogger(CategoryDaoImpl.class);
+
+    public CategoryDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Category> getAllCategories() {
@@ -199,5 +207,16 @@ public class CategoryDaoImpl implements CategoryDao {
         preparedStatement.close();
         connection.close();
         return subCategories;
+    }
+
+    @Override
+    public List<Category> findByProductId(Long productId) {
+        String sql = "CALL categories_from_product(?);";
+
+        return jdbcTemplate.query(
+                sql,
+                preparedStatement -> preparedStatement.setLong(1, productId),
+                new BeanPropertyRowMapper<>(Category.class)
+        );
     }
 }

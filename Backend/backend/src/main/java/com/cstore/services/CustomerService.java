@@ -2,8 +2,9 @@ package com.cstore.services;
 
 import com.cstore.exceptions.CustomerAlreadyExistsException;
 import com.cstore.exceptions.InvalidArgumentException;
-import com.cstore.models.Customer;
-import com.cstore.models.RegisteredCustomer;
+import com.cstore.models.Role;
+import com.cstore.models.User;
+import com.cstore.models.RegisteredUser;
 import com.cstore.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,43 +22,43 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerRepository.getAllCustomers();
+    public List<User> getAllCustomers() {
+        return customerRepository.findAll();
     }
 
-    public Customer getCustomerById(Long customerId) {
-        Optional<Customer> tempCustomer = customerRepository.findById(customerId);
-        Customer customer = null;
+    public User getCustomerById(Long customerId) {
+        Optional<User> tempCustomer = customerRepository.findById(customerId);
+        User user = null;
 
         if (tempCustomer.isPresent()) {
-            customer = tempCustomer.get();
+            user = tempCustomer.get();
         }
-        return customer;
+        return user;
     }
 
-    public Customer joinAsGuest(Customer customer) {
-        if (customer.getId() == null) {
-            customer.setType("Guest");
-            return customerRepository.save(customer);
+    public User joinAsGuest(User user) {
+        if (user.getUserId() == null) {
+            user.setRole(Role.GUEST_CUST);
+            return customerRepository.save(user);
         }
 
-        throw new CustomerAlreadyExistsException("Customer with already exists.");
+        throw new CustomerAlreadyExistsException("User with already exists.");
     }
 
-    public Customer register(Long id, RegisteredCustomer registeredCustomer) {
-        if (registeredCustomer.getEmail() == null) {
+    public User register(Long id, RegisteredUser registeredUser) {
+        if (registeredUser.getEmail() == null) {
             throw new InvalidArgumentException("A valid email address must be provided.");
-        } else if (registeredCustomer.getPassword() == null) {
+        } else if (registeredUser.getPassword() == null) {
             throw new InvalidArgumentException("A valid password must be provided.");
-        } else if (registeredCustomer.getFirstName() == null) {
+        } else if (registeredUser.getFirstName() == null) {
             throw new InvalidArgumentException("A valid first name must be provided.");
-        } else if (registeredCustomer.getLastName() == null) {
+        } else if (registeredUser.getLastName() == null) {
             throw new InvalidArgumentException("A valid last name must be provided.");
         }
         return null;
     }
 
-    public Customer loginCustomer(Long id, Map<String, Object> loginDetails) {
+    public User loginCustomer(Long id, Map<String, Object> loginDetails) {
         return null;
     }
 

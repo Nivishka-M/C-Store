@@ -12,7 +12,7 @@ public class NewProductDto {
     private BigDecimal basePrice;
     private String brand;
     private String description;
-    private byte[] mainImage;
+    private String imageUrl;
     private List<VariantDto> variants;
-    private List<CategoryDto> categories;
+    private List<_Category> categories;
 }

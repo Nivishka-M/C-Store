@@ -1,12 +1,14 @@
+USE `cstore`;
+
 DELETE FROM `order_item`;
 DELETE FROM `order_contact`;
 DELETE FROM `order`;
 DELETE FROM `cart_item`;
 DELETE FROM `cart`;
-DELETE FROM `customer_address`;
-DELETE FROM `customer_contact`;
-DELETE FROM `registered_customer`;
-DELETE FROM `customer`;
+DELETE FROM `user_address`;
+DELETE FROM `user_contact`;
+DELETE FROM `registered_user`;
+DELETE FROM `user`;
 DELETE FROM `inventory`;
 DELETE FROM `warehouse_contact`;
 DELETE FROM `warehouse`;
@@ -32,7 +34,9 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_description`) 
     (6, 'Toys for boys','RC cars ,games, toy guns and more..'),
     (7, 'Toys for girls','Dolls,teddies, Princess accessories and more..'),
     (8, 'Laptops','All top brands at best price'),
-    (9, 'Outdoor electronics' , 'Electronic gadgets used in the outdoors');
+    (9, 'Outdoor electronics' , 'Electronic gadgets used in the outdoors'),
+    (10, 'Computer accessories', 'Electronic accessaries related to computers'),
+    (11, 'Medical electronics', 'Electronic medical equipments');
 
 # SELECT *
 # FROM `category`;
@@ -41,13 +45,15 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_description`) 
 -- `sub Category`
 
 INSERT INTO `sub_category` (`category_id`, `sub_category_id`) VALUES
-    (1, 3),
-    (1, 4),
-    (1, 5),
-    (2, 6),
-    (2, 7),
-    (1, 8), 
-    (1, 9);
+     (1, 3),
+     (1, 4),
+     (1, 5),
+     (2, 6),
+     (2, 7),
+     (1, 8),
+     (1, 9),
+     (1, 10),
+     (1, 11);
 
 # SELECT *
 # FROM `sub_category`;
@@ -79,7 +85,21 @@ INSERT INTO `product` (`product_id`, `product_name`, `brand`, `description`, `ba
     (13, 'Simulation Dinosaur', 'Wild Safari','Lifelike Mosasaurus PlesiosaurDunkleosteus Action Figures', 9.20),
     (14, 'Gorilla female Monkey Model', 'Schleich', 'Squeaky Sound Toy, Children Toy,Action Figure', 12),
     (15, 'High speed RC Car', 'Rastar', 'Remote Control AE86 Model GTR Vehicle RC Racing Cars', 67.78),
-    (16, 'Bluetooth speaker', 'SONY','Waterproof portable wireless', 250);
+    (16, 'Bluetooth speaker', 'SONY','Waterproof portable wireless', 250),
+    (17, 'Smart Watch', 'Huawei', 'Smart Watch for Men, Fitness Tracker', 49),
+    (18, 'Dash camera', 'Xiaomi', '3 Channel Dash Cam 2K+1080P With GPS, WiFi', 69),
+    (19, 'Arduino kit', 'Grove', ' Arduino starter kit, improved version', 30),
+    (20, 'Bluetooth receiver', 'LDAC', 'Qualcomm QCC5125 lossless Bluetooth 5.1 receiver', 80),
+    (21, 'Smart stunt dog Toy','Sigma', 'RC Robot Dog Voice Command Programmable Touch-sense',150),
+    (22, 'Six claw dancing robot','Mattel','Limited Edition children Toys Dance Music Robots',230),
+    (23, 'Unicorn plush toy','K-Nex','Soft Stuffed Toy Giant Size Cartoon Dolls Animal Horse',23),
+    (24, 'Football Table Interactive Games','Kidsbele', 'Tabletop Soccer Pinball Toys Classic Parent-Child Interactive',456),
+    (25, 'RC car Lambogini','ARRMA','2.4G Radio Remote Control Sports Cars For Children Racing High Speed Drive',299),
+    (26, 'Electric Domino Train Toy','Lego','Colorful Electric Domino Train Toys Set with 100Pcs Building Blocks',34),
+    (27, 'Luminous Fidget Spinner',null, 'Light Up Changeable Hand Spinners Adult Glowing Spiner Stress Relief Toys',25),
+    (28, 'Electronic Unlock Installation','Fengweima','Electronic Cylinder Tuya Unlock Installation Keyless Tuya Fingerprint Smart Password lock',67),
+    (29, 'Wireless headset','Saramonic','Wireless full duplex gaming headset', 140),
+    (30, 'Electronic thermometer',null,'Digital Forehead Thermometer Electronic Contactless',54);
 
 # SELECT *
 # FROM `product`;
@@ -112,7 +132,24 @@ INSERT INTO `belongs_to` (`category_id`, `product_id`) VALUES
     (7, 14),
     (2, 5),
     (1, 10),
-    (6, 15);
+    (6, 15),
+    (5, 17),
+    (9, 17),
+    (9, 18),
+    (1, 19),
+    (5, 20),
+    (1, 21),
+    (2, 21),
+    (2, 22),
+    (7, 23),
+    (6, 24),
+    (6, 25),
+    (2, 26),
+    (2, 27),
+    (6, 28),
+    (9, 28),
+    (10, 29),
+    (11, 30);
 
 # SELECT *
 # FROM belongs_to;
@@ -124,7 +161,8 @@ INSERT INTO `property` (`property_id`, `property_name`, `value`, `price_incremen
     (1, 'Color', 'Black', 0),
     (2, 'Size', 'Large', 100),
     (3, 'capacity', '256 GB', 100),
-    (4, 'camera quality', '4K', 180); # for drones
+    (4, 'camera quality', '4K', 180), # for drones
+    (5, 'Number of additional pieces', 'Extra 100',20); # dominos,legoes
     
 # SELECT *
 # FROM `property`;
@@ -183,20 +221,20 @@ INSERT INTO `inventory` (`warehouse_id`, `variant_id`, `sku`, `count`) VALUES
 # FROM `inventory`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `customer`
+--  `user`
 
-INSERT INTO `customer` (`customer_id`, `type`) VALUES
-    (1, 'Registered'),
-    (2, 'Registered'),
-    (3, 'Guest');
+INSERT INTO `user` (`user_id`, `role`) VALUES
+    (1, 'REG_CUST'),
+    (2, 'REG_CUST'),
+    (3, 'GUEST_CUST');
 
 # SELECT *
-# FROM `customer`;
+# FROM `user`;
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `registered_customer`
 
-INSERT INTO `registered_customer` (`customer_id`, `email`, `password`, `first_name`, `last_name`) VALUES
+INSERT INTO `registered_user` (`user_id`, `email`, `password`, `first_name`, `last_name`) VALUES
     (1, 'dulinaperera@gmail.com', 'password123', 'Dulina', 'Perera'),
     (2, 'nethumrathnayake@gmail.com', 'IloveMethmini', 'Nethum', 'Rathnayake');
 
@@ -206,7 +244,7 @@ INSERT INTO `registered_customer` (`customer_id`, `email`, `password`, `first_na
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `customer_contact`
 
-INSERT INTO `customer_contact` (`customer_id`, `telephone_number`) VALUES
+INSERT INTO `user_contact` (`user_id`, `telephone_number`) VALUES
     (1, '0702632639'),
     (2, '0714283876');
 
@@ -216,7 +254,7 @@ INSERT INTO `customer_contact` (`customer_id`, `telephone_number`) VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `customer_address`
 
-INSERT INTO `customer_address` (`address_id`, `customer_id`, `street_number`, `street_name`, `city`, `zipcode`) VALUES
+INSERT INTO `user_address` (`address_id`, `user_id`, `street_number`, `street_name`, `city`, `zipcode`) VALUES
     (1, 1, '5/16', 'Sri Dhammaruchi Mawatha', 'Wadduwa', 12560),
     (2, 2, '123', 'Kesbewa Road', 'Kesbewaa', 12345);
 
@@ -226,7 +264,7 @@ INSERT INTO `customer_address` (`address_id`, `customer_id`, `street_number`, `s
 -- ---------------------------------------------------------------------------------------------------------------------
 --  `cart`
 
-INSERT INTO `cart` (`customer_id`, `total_price`) VALUES
+INSERT INTO `cart` (`user_id`, `total_price`) VALUES
     (1, 0),
     (2, 0),
     (3, 0);
@@ -237,7 +275,7 @@ INSERT INTO `cart` (`customer_id`, `total_price`) VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- `cart_item` table
 
-INSERT INTO `cart_item` (`customer_id`, `variant_id`, `quantity`) VALUES
+INSERT INTO `cart_item` (`user_id`, `variant_id`, `quantity`) VALUES
     (1, 1, 2),
     (2, 3, 1),
     (3, 5, 3);

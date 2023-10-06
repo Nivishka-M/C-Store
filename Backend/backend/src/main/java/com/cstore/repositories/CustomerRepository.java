@@ -1,14 +1,13 @@
 package com.cstore.repositories;
 
-import com.cstore.models.Customer;
+import com.cstore.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<User, Long> {
     @Query(value = "SELECT * " +
                    "FROM cstore.customer;", nativeQuery = true)
-    List<Customer> getAllCustomers();
+    List<User> getAllCustomers();
 }

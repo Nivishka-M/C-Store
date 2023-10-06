@@ -1,7 +1,7 @@
 package com.cstore.daos.varieson;
 
-import com.cstore.daos.product.ProductDAO;
-import com.cstore.daos.property.PropertyDAO;
+import com.cstore.daos.product.ProductDao;
+import com.cstore.daos.property.PropertyDao;
 import com.cstore.daos.variant.VariantDao;
 import com.cstore.models.Product;
 import com.cstore.models.VariesOn;
@@ -16,19 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class VariesOnDaoImpl implements VariesOnDao {
+public class VariesOnDAOImpl implements VariesOnDAO {
     String url = "jdbc:mysql://localhost:3306/cstore";
     String username = "cadmin";
     String password = "cstore_GRP28_CSE21";
 
-    private final ProductDAO productDAO;
-    private final PropertyDAO propertyDAO;
+    private final ProductDao productDAO;
+    private final PropertyDao propertyDAO;
     private final VariantDao variantDAO;
 
-    Logger logger = LoggerFactory.getLogger(VariesOnDaoImpl.class);
+    Logger logger = LoggerFactory.getLogger(VariesOnDAOImpl.class);
 
     @Autowired
-    public VariesOnDaoImpl(ProductDAO productDAO, PropertyDAO propertyDAO, VariantDao variantDAO) {
+    public VariesOnDAOImpl(ProductDao productDAO, PropertyDao propertyDAO, VariantDao variantDAO) {
         this.productDAO = productDAO;
         this.propertyDAO = propertyDAO;
         this.variantDAO = variantDAO;

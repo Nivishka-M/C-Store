@@ -12,6 +12,6 @@ public class ProductDto {
     private BigDecimal basePrice;
     private String brand;
     private String description;
-    private byte[] mainImage;
+    private String imageUrl;
     private List<PropertyDto> properties;
 }

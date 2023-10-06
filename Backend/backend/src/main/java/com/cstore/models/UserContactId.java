@@ -8,20 +8,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class CustomerContactId implements Serializable {
+public class UserContactId implements Serializable {
     private static final long serialVersionUID = 4535620079918483570L;
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name = "telephone_number", nullable = false)
     private Integer telephoneNumber;
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Integer getTelephoneNumber() {
@@ -36,13 +36,13 @@ public class CustomerContactId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        CustomerContactId entity = (CustomerContactId) o;
+        UserContactId entity = (UserContactId) o;
         return Objects.equals(this.telephoneNumber, entity.telephoneNumber) &&
-                Objects.equals(this.customerId, entity.customerId);
+                Objects.equals(this.userId, entity.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(telephoneNumber, customerId);
+        return Objects.hash(telephoneNumber, userId);
     }
 }

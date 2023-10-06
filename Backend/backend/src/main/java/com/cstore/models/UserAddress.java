@@ -5,8 +5,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "customer_address", schema = "cstore", indexes = {@Index(name = "customer_id", columnList = "customer_id")})
-public class CustomerAddress {
+@Table(name = "user_address", schema = "cstore", indexes = {@Index(name = "customer_id", columnList = "customer_id")})
+public class UserAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id", nullable = false)
@@ -15,7 +15,7 @@ public class CustomerAddress {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private User user;
 
     @Column(name = "street_number", length = 10)
     private String streetNumber;
@@ -37,12 +37,12 @@ public class CustomerAddress {
         this.id = id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getCustomer() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(User user) {
+        this.user = user;
     }
 
     public String getStreetNumber() {

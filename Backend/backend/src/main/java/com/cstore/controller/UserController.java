@@ -1,7 +1,7 @@
 package com.cstore.controller;
 
-import com.cstore.models.Customer;
-import com.cstore.models.RegisteredCustomer;
+import com.cstore.models.User;
+import com.cstore.models.RegisteredUser;
 import com.cstore.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,46 +11,46 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/cstore/api/customers")
-public class CustomerController {
+public class UserController {
     private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public UserController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
-    public List<Customer> getAllCustomers() {
+    public List<User> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{customer_id}")
-    public Customer getCustomerById(@PathVariable(name = "customer_id", required = true) int customerId) {
+    public User getCustomerById(@PathVariable(name = "customer_id", required = true) int customerId) {
         return customerService.getCustomerById((long)customerId);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "")
-    public Customer joinAsGuest(@RequestBody(required = true) Customer customer) {
-        return customerService.joinAsGuest(customer);
+    public User joinAsGuest(@RequestBody(required = true) User user) {
+        return customerService.joinAsGuest(user);
     }
 
     /*
         This method lets register guest customers.
      */
     @RequestMapping(method = RequestMethod.POST, path = "/{id}")
-    public Customer register(@PathVariable(name = "id", required = true) Long id,
-                             @RequestBody(required = true) RegisteredCustomer registeredCustomer) {
+    public User register(@PathVariable(name = "id", required = true) Long id,
+                         @RequestBody(required = true) RegisteredUser registeredUser) {
         /* TODO
-         *  Check whether the id is null or the Customer with the given id has no items in the cart.
+         *  Check whether the id is null or the User with the given id has no items in the cart.
          *  If so, just register the customer.
          *  Otherwise, register the customer, copy cart items to the registered customer cart and delete the guest customer.
          * */
-        return customerService.register(id, registeredCustomer);
+        return customerService.register(id, registeredUser);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, path = "/{id}")
-    public Customer loginCustomer(@PathVariable(name = "id", required = false) Long id,
-                                  @RequestBody(required = true) Map<String, Object> loginDetails) {
+    public User loginCustomer(@PathVariable(name = "id", required = false) Long id,
+                              @RequestBody(required = true) Map<String, Object> loginDetails) {
         /* TODO
          *  Check whether all the login details are matched to a registered customer.
          *  If not, throw an error indicating that login failed.

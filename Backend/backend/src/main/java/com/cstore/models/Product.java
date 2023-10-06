@@ -25,8 +25,8 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "main_image")
-    private byte[] mainImage;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Long getProductId() {
         return productId;
@@ -68,11 +68,11 @@ public class Product {
         this.description = description;
     }
 
-    public byte[] getMainImage() {
-        return mainImage;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setMainImage(byte[] mainImage) {
-        this.mainImage = mainImage;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

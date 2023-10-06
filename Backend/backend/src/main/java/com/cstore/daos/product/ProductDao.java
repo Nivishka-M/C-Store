@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductDAO {
+public interface ProductDao {
     Optional<Product> findProduct(Product unknown) throws SQLException;
 
     List<Product> findAll();
@@ -18,4 +18,6 @@ public interface ProductDAO {
     void save(Product product) throws SQLException;
 
     List<Product> findAllByCategoryId(Long categoryId) throws SQLException;
+
+    Integer countStocks(Long productId);
 }

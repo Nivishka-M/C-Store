@@ -1,4 +1,26 @@
-USE cstore;
+USE `cstore`;
+
+DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `order_contact`;
+DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `cart_item`;
+DROP TABLE IF EXISTS `cart`;
+DROP TABLE IF EXISTS `user_address`;
+DROP TABLE IF EXISTS `user_contact`;
+DROP TABLE IF EXISTS `registered_user`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `inventory`;
+DROP TABLE IF EXISTS `warehouse_contact`;
+DROP TABLE IF EXISTS `warehouse`;
+DROP TABLE IF EXISTS `varies_on`;
+DROP TABLE IF EXISTS `variant`;
+DROP TABLE IF EXISTS `property`;
+DROP TABLE IF EXISTS `belongs_to`;
+DROP TABLE IF EXISTS `product_image`;
+DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `image`;
+DROP TABLE IF EXISTS `sub_category`;
+DROP TABLE IF EXISTS `category`;
 
 -- Category
 DROP TABLE IF EXISTS `category`;
@@ -27,11 +49,11 @@ DROP TABLE IF EXISTS `image`;
 
 CREATE TABLE `image` (
     `image_id` BIGINT AUTO_INCREMENT,
-    `content`  MEDIUMBLOB,
+    `url`  VARCHAR (100),
     PRIMARY KEY (`image_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Product
+-- WholeProduct
 DROP TABLE IF EXISTS `product`;
 
 CREATE TABLE `product` (
@@ -40,11 +62,11 @@ CREATE TABLE `product` (
     `base_price`   NUMERIC (10, 2),
     `brand`        VARCHAR (40),
     `description`  TEXT,
-    `main_image`   MEDIUMBLOB,
+    `image_url`   VARCHAR (100),
     PRIMARY KEY (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Product Image
+-- WholeProduct Image
 DROP TABLE IF EXISTS `product_image`;
 
 CREATE TABLE `product_image` (
@@ -66,7 +88,7 @@ CREATE TABLE `belongs_to` (
     FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Property
+-- ProductSelectionProperty
 DROP TABLE IF EXISTS `property`;
 
 CREATE TABLE `property` (
@@ -135,71 +157,71 @@ CREATE TABLE `inventory` (
     FOREIGN KEY (`variant_id`) REFERENCES `variant` (`variant_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Customer
-DROP TABLE IF EXISTS `customer`;
+-- User
+DROP TABLE IF EXISTS `user`;
 
-CREATE TABLE `customer` (
-    `customer_id` BIGINT AUTO_INCREMENT,
-    `type`        VARCHAR (10),
-    PRIMARY KEY (`customer_id`)
+CREATE TABLE `user` (
+    `user_id` BIGINT AUTO_INCREMENT,
+    `role`    VARCHAR (10) CHECK (`role` IN ('GUEST_CUST', 'REG_CUST', 'ADMIN')),
+    PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Registered Customer
-DROP TABLE IF EXISTS `registered_customer`;
+-- Registered User
+DROP TABLE IF EXISTS `registered_user`;
 
-CREATE TABLE `registered_customer` (
-    `customer_id` BIGINT,
+CREATE TABLE `registered_user` (
+    `user_id` BIGINT,
     `email`       VARCHAR (60),
     `password`    VARCHAR (60),
     `first_name`  VARCHAR (20),
     `last_name`   VARCHAR (20),
-    PRIMARY KEY (`customer_id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
+    PRIMARY KEY (`user_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Customer Contact
-DROP TABLE IF EXISTS `customer_contact`;
+-- User Contact
+DROP TABLE IF EXISTS `user_contact`;
 
-CREATE TABLE `customer_contact` (
-    `customer_id`      BIGINT,
+CREATE TABLE `user_contact` (
+    `user_id`      BIGINT,
     `telephone_number` VARCHAR (12),
-    PRIMARY KEY (`customer_id`, `telephone_number`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
+    PRIMARY KEY (`user_id`, `telephone_number`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Customer Address
-DROP TABLE IF EXISTS `customer_address`;
+-- User Address
+DROP TABLE IF EXISTS `user_address`;
 
-CREATE TABLE `customer_address` (
+CREATE TABLE `user_address` (
     `address_id`    BIGINT AUTO_INCREMENT,
-    `customer_id`   BIGINT,
+    `user_id`   BIGINT,
     `street_number` VARCHAR (10),
     `street_name`   VARCHAR (60),
     `city`          VARCHAR (40),
     `zipcode`       INTEGER,
     PRIMARY KEY (`address_id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Cart
 DROP TABLE IF EXISTS `cart`;
 
 CREATE TABLE `cart` (
-    `customer_id` BIGINT,
+    `user_id` BIGINT,
     `total_price` NUMERIC (12, 2),
-    PRIMARY KEY (`customer_id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE CASCADE
+    PRIMARY KEY (`user_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Contains
 DROP TABLE IF EXISTS `cart_item`;
 
 CREATE TABLE `cart_item` (
-    `customer_id` BIGINT,
+    `user_id` BIGINT,
     `variant_id`  BIGINT,
     `quantity`    INTEGER,
-    PRIMARY KEY (`customer_id`, `variant_id`),
-    FOREIGN KEY (`customer_id`) REFERENCES `cart` (`customer_id`) ON DELETE CASCADE,
+    PRIMARY KEY (`user_id`, `variant_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `cart` (`user_id`) ON DELETE CASCADE,
     FOREIGN KEY (`variant_id`) REFERENCES `variant` (`variant_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -244,28 +266,10 @@ CREATE TABLE `order_item` (
     FOREIGN KEY (`warehouse_id`) REFERENCES `warehouse` (`warehouse_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-# DROP TABLE IF EXISTS `order_item`;
-# DROP TABLE IF EXISTS `order_contact`;
-# DROP TABLE IF EXISTS `order`;
-# DROP TABLE IF EXISTS `cart_item`;
-# DROP TABLE IF EXISTS `cart`;
-# DROP TABLE IF EXISTS `customer_address`;
-# DROP TABLE IF EXISTS `customer_contact`;
-# DROP TABLE IF EXISTS `registered_customer`;
-# DROP TABLE IF EXISTS `customer`;
-# DROP TABLE IF EXISTS `inventory`;
-# DROP TABLE IF EXISTS `warehouse_contact`;
-# DROP TABLE IF EXISTS `warehouse`;
-# DROP TABLE IF EXISTS `varies_on`;
-# DROP TABLE IF EXISTS `variant`;
-# DROP TABLE IF EXISTS `property`;
-# DROP TABLE IF EXISTS `belongs_to`;
-# DROP TABLE IF EXISTS `product_image`;
-# DROP TABLE IF EXISTS `product`;
-# DROP TABLE IF EXISTS `image`;
-# DROP TABLE IF EXISTS `sub_category`;
-# DROP TABLE IF EXISTS `category`;
 
+-- VIEWS----------------------------------------------------------------------------------------------------------------
+
+DROP VIEW IF EXISTS `base_category`;
 CREATE VIEW `base_category` AS
     SELECT *
     FROM `category`
@@ -273,4 +277,73 @@ CREATE VIEW `base_category` AS
                                 FROM sub_category);
 
 # SELECT * FROM `base_category`;
-# DROP VIEW IF EXISTS `base_category`;
+
+
+-- PROCEDURES-----------------------------------------------------------------------------------------------------------
+
+
+DROP PROCEDURE IF EXISTS products_from_category;
+DELIMITER //
+CREATE PROCEDURE products_from_category(c_id BIGINT)
+BEGIN
+    SELECT DISTINCT `product`.*
+    FROM `belongs_to` NATURAL LEFT OUTER JOIN `product`
+    WHERE `belongs_to`.`category_id` = c_id;
+END //
+DELIMITER ;
+
+# CALL products_from_category(4);
+
+
+DROP PROCEDURE IF EXISTS categories_from_product;
+DELIMITER //
+CREATE PROCEDURE categories_from_product(p_id BIGINT)
+BEGIN
+    SELECT DISTINCT `category`.*
+    FROM `category`, `belongs_to` NATURAL LEFT OUTER JOIN `product`
+    WHERE `category`.`category_id` = `belongs_to`.`category_id` AND `belongs_to`.`product_id` = p_id;
+END //
+DELIMITER ;
+
+# CALL categories_from_product(17);
+
+
+DROP PROCEDURE IF EXISTS images_from_product;
+DELIMITER //
+CREATE PROCEDURE images_from_product(p_id BIGINT)
+BEGIN
+    SELECT DISTINCT `image`.*
+    FROM `image`, `product_image` NATURAL LEFT OUTER JOIN `product`
+    WHERE `image`.image_id = `product_image`.image_id AND `product_image`.`product_id` = p_id;
+END //
+DELIMITER ;
+
+# CALL images_from_product(1);
+
+
+DROP PROCEDURE IF EXISTS count_stocks;
+DELIMITER //
+CREATE PROCEDURE count_stocks(p_id BIGINT)
+BEGIN
+    SELECT DISTINCT SUM(count)
+    FROM `varies_on` NATURAL LEFT OUTER JOIN `inventory`
+    WHERE `varies_on`.product_id = p_id;
+END //
+DELIMITER ;
+
+# CALL count_stocks(1);
+
+
+DROP PROCEDURE IF EXISTS properties_from_product;
+DELIMITER //
+CREATE PROCEDURE properties_from_product(p_id BIGINT)
+BEGIN
+    SELECT *
+    FROM `property`
+    WHERE `property_id` IN (SELECT `property_id`
+                            FROM `product` NATURAL LEFT OUTER JOIN `varies_on`
+                            WHERE `product`.`product_id` = p_id AND `property_id` IS NOT NULL);
+END //
+DELIMITER ;
+
+# CALL properties_from_product(1);

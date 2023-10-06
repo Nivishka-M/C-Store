@@ -1,4 +1,4 @@
-package com.cstore.category.browsing;
+package com.cstore.domain.category.browsing;
 
 import com.cstore.models.Category;
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,13 +71,13 @@ public class CategoryBrowsingController {
                     @ApiResponse(
                             content = @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Category.class))
+                                    array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))
                             ),
                             description = "Success",
                             responseCode = "200"
                     )
             },
-            summary = "Returns all products belonging to a category, given the category identifier."
+            summary = "Returns all products (with properties of non-monetary value) belonging to a category, given the category identifier."
     )
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/products")
     public List<ProductDTO> getAllProductsBelongingToCategory(@PathVariable(name = "id") Long categoryId) throws SQLException {

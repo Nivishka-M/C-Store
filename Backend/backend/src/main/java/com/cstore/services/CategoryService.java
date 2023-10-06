@@ -90,14 +90,14 @@ public class CategoryService {
 
         for (BelongsTo belonging : belongings) {
             ProductDTO productDTO = new ProductDTO();
-            List<PropertyDTO> properties = new ArrayList<>();
+            List<ProductSelectionProperty> properties = new ArrayList<>();
 
-            Product product = belonging.getProduct();
+            WholeProduct product = belonging.getProduct();
             List<VariesOn> variances = variesOnRepository.findByProduct(product);
 
             for (VariesOn variance : variances) {
-                Property property = variance.getProperty();
-                PropertyDTO propertyDTO = new PropertyDTO();
+                ProductSelectionProperty property = variance.getProperty();
+                ProductSelectionProperty propertyDTO = new ProductSelectionProperty();
 
                 propertyDTO.setPropertyName(property.getPropertyName());
                 propertyDTO.setValue(property.getValue());

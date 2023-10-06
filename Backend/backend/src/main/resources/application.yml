@@ -1,0 +1,27 @@
+logging:
+  level:
+    org:
+      springframework: DEBUG
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    url: jdbc:mysql://localhost:3306/cstore
+    username: cadmin
+    password: cstore_GRP28_CSE21
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      schema-locations:
+        classpath:schema.sql
+      data-locations:
+        classpath:data.sql

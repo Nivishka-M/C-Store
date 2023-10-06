@@ -1,11 +1,11 @@
 package com.cstore.services;
 
-import com.cstore.daos.product.ProductDAO;
-import com.cstore.daos.varieson.VariesOnDao;
+import com.cstore.daos.product.ProductDao;
+import com.cstore.daos.varieson.VariesOnDAO;
 import com.cstore.dtos.NewProductDto;
 import com.cstore.dtos.ProductDto;
 import com.cstore.dtos.PropertyDto;
-import com.cstore.exceptions.ProductNotFoundException;
+import com.cstore.exceptions.NoSuchProductException;
 import com.cstore.models.Product;
 import com.cstore.models.VariesOn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-    private final ProductDAO productDao;
-    private final VariesOnDao variesOnDao;
+    private final ProductDao productDao;
+    private final VariesOnDAO variesOnDao;
 
     @Autowired
-    public ProductService(ProductDAO productDao, VariesOnDao variesOnDao) {
+    public ProductService(ProductDao productDao, VariesOnDAO variesOnDao) {
         this.productDao = productDao;
         this.variesOnDao = variesOnDao;
     }
@@ -36,15 +36,15 @@ public class ProductService {
 
     private ProductDto convert(Product product) {
         List<VariesOn> variances = variesOnDao.findByProduct(product);
-        ProductDto productDTO = new ProductDto();
+        ProductDto productDto = new ProductDto();
         List<PropertyDto> properties = new ArrayList<PropertyDto>();
 
-        productDTO.setProductId(product.getProductId());
-        productDTO.setProductName(product.getProductName());
-        productDTO.setBasePrice(product.getBasePrice());
-        productDTO.setBrand(product.getBrand());
-        productDTO.setDescription(product.getDescription());
-        productDTO.setMainImage(product.getMainImage());
+        productDto.setProductId(product.getProductId());
+        productDto.setProductName(product.getProductName());
+        productDto.setBasePrice(product.getBasePrice());
+        productDto.setBrand(product.getBrand());
+        productDto.setDescription(product.getDescription());
+        productDto.setImageUrl(product.getImageUrl());
 
         for (VariesOn variesOn : variances) {
             PropertyDto propertyDTO = new PropertyDto();
@@ -57,9 +57,9 @@ public class ProductService {
 
             properties.add(propertyDTO);
         }
-        productDTO.setProperties(properties);
+        productDto.setProperties(properties);
 
-        return productDTO;
+        return productDto;
     }
 
     public List<ProductDto> getAllProducts() throws SQLException {
@@ -74,7 +74,7 @@ public class ProductService {
         Optional<Product> product = productDao.findById(productId);
 
         if (product.isEmpty()) {
-            throw new ProductNotFoundException("Product with id " + productId + " not found.");
+            throw new NoSuchProductException("WholeProduct with id " + productId + " not found.");
         }
         return convert(product.get());
     }
@@ -93,7 +93,7 @@ public class ProductService {
         product.setBasePrice(newProduct.getBasePrice());
         product.setBrand(newProduct.getBrand());
         product.setDescription(newProduct.getDescription());
-        product.setMainImage(newProduct.getMainImage());
+        product.setImageUrl(newProduct.getImageUrl());
 
         productDao.save(product);
         product.setProductId(getProduct(product).getProductId());
