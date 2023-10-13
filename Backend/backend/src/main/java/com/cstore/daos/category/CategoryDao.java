@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CategoryDao {
-    List<Category> getAllCategories();
+    List<Category> findAll();
 
     Optional<Category> findCategory(Category unknown) throws SQLException;
 
@@ -19,9 +19,9 @@ public interface CategoryDao {
 
     void delete(Long categoryId) throws SQLException;
 
-    List<Category> findAllBaseCategories() throws SQLException;
+    List<Category> findAllBaseCategories();
 
-    List<Category> findAllDirectSubCategories(Long categoryId) throws SQLException;
+    List<Category> findAllDirectSubCategories(Long categoryId);
 
     List<Category> findByProductId(Long productId);
 }

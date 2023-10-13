@@ -22,7 +22,7 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategories() {
-        return categoryDao.getAllCategories();
+        return categoryDao.findAll();
     }
 
     private Category getCategory(Category unknown) throws SQLException {

@@ -27,29 +27,14 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<Category>();
+    public List<Category> findAll() {
         String sql = "SELECT * " +
-                     "FROM `category`;";
+                     "FROM category;";
 
-        try (Connection connection = DriverManager.getConnection(url, username, password);
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql);) {
-            while (resultSet.next()) {
-                Category category = new Category();
-
-                category.setCategoryId(resultSet.getLong("category_id"));
-                category.setCategoryName(resultSet.getString("category_name"));
-                category.setCategoryDescription(resultSet.getString("category_description"));
-
-                categories.add(category);
-            }
-
-            return categories;
-        } catch (SQLException sqe) {
-            logger.error("Error while fetching categories from the database.", sqe);
-            return new ArrayList<>();
-        }
+        return jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper<>(Category.class)
+        );
     }
 
     @Override
@@ -155,58 +140,29 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List<Category> findAllBaseCategories() throws SQLException {
-        List<Category> baseCategories = new ArrayList<Category>();
+    public List<Category> findAllBaseCategories() {
         String sql = "SELECT * " +
-                     "FROM `base_category`;";
+                     "FROM base_category;";
 
-        Connection connection = DriverManager.getConnection(url, username, password);
-        Statement statement = connection.createStatement();
-
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            Category category = new Category();
-
-            category.setCategoryId(resultSet.getLong("category_id"));
-            category.setCategoryName(resultSet.getString("category_name"));
-            category.setCategoryDescription(resultSet.getString("category_description"));
-
-            baseCategories.add(category);
-        }
-
-        resultSet.close();
-        statement.close();
-        connection.close();
-        return baseCategories;
+        return jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper<>(Category.class)
+        );
     }
 
     @Override
-    public List<Category> findAllDirectSubCategories(Long categoryId) throws SQLException {
-        Connection connection = DriverManager.getConnection(url, username, password);
-        List<Category> subCategories = new ArrayList<Category>();
+    public List<Category> findAllDirectSubCategories(Long categoryId) {
         String sql = "SELECT * " +
-                     "FROM `category` " +
-                     "WHERE `category_id` IN (SELECT `sub_category_id` " +
-                                             "FROM `sub_category` " +
-                                             "WHERE `category_id` = ?);";
+                     "FROM category " +
+                     "WHERE category_id IN (SELECT sub_category_id " +
+                                           "FROM sub_category " +
+                                           "WHERE category_id = ?);";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setLong(1, categoryId);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            Category category = new Category();
-
-            category.setCategoryId(resultSet.getLong("category_id"));
-            category.setCategoryName(resultSet.getString("category_name"));
-            category.setCategoryDescription(resultSet.getString("category_description"));
-
-            subCategories.add(category);
-        }
-
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-        return subCategories;
+        return jdbcTemplate.query(
+                sql,
+                preparedStatement -> preparedStatement.setLong(1, categoryId),
+                new BeanPropertyRowMapper<>(Category.class)
+        );
     }
 
     @Override

@@ -15,8 +15,8 @@ public class CartItem {
     @MapsId("customerId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Cart customer;
+    @JoinColumn(name = "user_id", nullable = false)
+    private Cart cart;
 
     @MapsId("variantId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,12 +35,12 @@ public class CartItem {
         this.id = id;
     }
 
-    public Cart getCustomer() {
-        return customer;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCustomer(Cart customer) {
-        this.customer = customer;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Variant getVariant() {

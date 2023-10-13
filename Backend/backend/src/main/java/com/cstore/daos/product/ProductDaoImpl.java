@@ -62,7 +62,7 @@ public class ProductDaoImpl implements ProductDao {
             connection = DriverManager.getConnection(url, username, password);
             List<Product> products = new ArrayList<Product>();
             String sql = "SELECT * " +
-                    "FROM `product`;";
+                         "FROM `product`;";
 
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
@@ -112,8 +112,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public Optional<Product> findById(Long productId) {
         String sql = "SELECT * " +
-                     "FROM `product` " +
-                     "WHERE `product_id` = ?;";
+                     "FROM product " +
+                     "WHERE product_id = ?;";
 
         try {
             Product product = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Product.class), productId);
@@ -209,7 +209,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Integer countStocks(Long productId) {
-        String sql = "CALL count_stocks(?);";
+        String sql = "SELECT count_stocks(?);";
 
         return jdbcTemplate.queryForObject(sql, Integer.class, productId);
     }

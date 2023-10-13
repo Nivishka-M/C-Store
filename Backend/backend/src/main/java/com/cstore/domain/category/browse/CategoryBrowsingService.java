@@ -1,4 +1,4 @@
-package com.cstore.domain.category.browsing;
+package com.cstore.domain.category.browse;
 
 import com.cstore.daos.category.CategoryDao;
 import com.cstore.daos.product.ProductDao;
@@ -18,30 +18,29 @@ import java.util.Map;
 
 @Service
 public class CategoryBrowsingService {
-    private final CategoryDao categoryDAO;
-    private final ProductDao productDAO;
-    private final PropertyDao propertyDAO;
+    private final CategoryDao categoryDao;
+    private final ProductDao productDao;
+    private final PropertyDao propertyDao;
 
     @Autowired
-    public CategoryBrowsingService(CategoryDao categoryDAO, ProductDao productDAO, PropertyDao propertyDAO) {
-        this.categoryDAO = categoryDAO;
-        this.productDAO = productDAO;
-        this.propertyDAO = propertyDAO;
+    public CategoryBrowsingService(CategoryDao categoryDao, ProductDao productDao, PropertyDao propertyDao) {
+        this.categoryDao = categoryDao;
+        this.productDao = productDao;
+        this.propertyDao = propertyDao;
     }
 
     public List<Category> getAllBaseCategories() throws SQLException {
-        return categoryDAO.findAllBaseCategories();
-
+        return categoryDao.findAllBaseCategories();
     }
 
     public List<Category> getAllDirectSubCategories(Long categoryId) throws SQLException {
-        return categoryDAO.findAllDirectSubCategories(categoryId);
+        return categoryDao.findAllDirectSubCategories(categoryId);
     }
 
     public List<ProductDTO> getAllProductsBelongingToCategory(Long categoryId) throws SQLException {
         List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
 
-        List<Product> products = productDAO.findAllByCategoryId(categoryId);
+        List<Product> products = productDao.findAllByCategoryId(categoryId);
         for (Product product : products) {
             ProductDTO productDTO = new ProductDTO();
 
@@ -52,7 +51,7 @@ public class CategoryBrowsingService {
             productDTO.setImageUrl(product.getImageUrl());
 
             Map<String, List<String>> propertyMap = new HashMap<>();
-            List<Property> properties = propertyDAO.findByProductId(product.getProductId());
+            List<Property> properties = propertyDao.findByProductId(product.getProductId());
             for (Property property : properties) {
                 if (property.getPriceIncrement().compareTo(new BigDecimal("0")) == 0) {
                     if (propertyMap.containsKey(property.getPropertyName())) {

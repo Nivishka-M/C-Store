@@ -1,7 +1,6 @@
 package com.cstore.domain.product.browse;
 
-import com.cstore.domain.category.browsing.ProductDTO;
-import com.cstore.services.ProductBrowsingService;
+import com.cstore.domain.category.browse.ProductDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,31 +1,31 @@
-USE `cstore`;
+\c "cstore";
 
-DELETE FROM `order_item`;
-DELETE FROM `order_contact`;
-DELETE FROM `order`;
-DELETE FROM `cart_item`;
-DELETE FROM `cart`;
-DELETE FROM `user_address`;
-DELETE FROM `user_contact`;
-DELETE FROM `registered_user`;
-DELETE FROM `user`;
-DELETE FROM `inventory`;
-DELETE FROM `warehouse_contact`;
-DELETE FROM `warehouse`;
-DELETE FROM `varies_on`;
-DELETE FROM `variant`;
-DELETE FROM `property`;
-DELETE FROM `belongs_to`;
-DELETE FROM `product_image`;
-DELETE FROM `product`;
-DELETE FROM `image`;
-DELETE FROM `sub_category`;
-DELETE FROM `category`;
+DELETE FROM "order_item";
+DELETE FROM "order_contact";
+DELETE FROM "order";
+DELETE FROM "cart_item";
+DELETE FROM "cart";
+DELETE FROM "user_address";
+DELETE FROM "user_contact";
+DELETE FROM "registered_user";
+DELETE FROM "user";
+DELETE FROM "inventory";
+DELETE FROM "warehouse_contact";
+DELETE FROM "warehouse";
+DELETE FROM "varies_on";
+DELETE FROM "variant";
+DELETE FROM "property";
+DELETE FROM "belongs_to";
+DELETE FROM "product_image";
+DELETE FROM "product";
+DELETE FROM "image";
+DELETE FROM "sub_category";
+DELETE FROM "category";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `category`
+--  "category"
 
-INSERT INTO `category` (`category_id`, `category_name`, `category_description`) VALUES
+INSERT INTO "category" ("category_id", "category_name", "category_description") VALUES
     (1, 'Electronics', 'Electronic devices and accessories'),
     (2, 'Toys', 'Childrens toys and games'),
     (3, 'Tvs', 'LCD, LED display TVs'),
@@ -38,13 +38,13 @@ INSERT INTO `category` (`category_id`, `category_name`, `category_description`) 
     (10, 'Computer accessories', 'Electronic accessaries related to computers'),
     (11, 'Medical electronics', 'Electronic medical equipments');
 
-# SELECT *
-# FROM `category`;
+-- SELECT *
+-- FROM "category";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `sub Category`
+-- "sub Category"
 
-INSERT INTO `sub_category` (`category_id`, `sub_category_id`) VALUES
+INSERT INTO "sub_category" ("category_id", "sub_category_id") VALUES
      (1, 3),
      (1, 4),
      (1, 5),
@@ -55,21 +55,21 @@ INSERT INTO `sub_category` (`category_id`, `sub_category_id`) VALUES
      (1, 10),
      (1, 11);
 
-# SELECT *
-# FROM `sub_category`;
+-- SELECT *
+-- FROM "sub_category";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `image`
+-- "image"
 
 
 
-# SELECT *
-# FROM `image`;
+-- SELECT *
+-- FROM "image";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `product`
+-- "product"
 
-INSERT INTO `product` (`product_id`, `product_name`, `brand`, `description`, `base_price`) VALUES
+INSERT INTO "product" ("product_id", "product_name", "brand", "description", "base_price") VALUES
     (1, 'iphone 14 pro', 'apple', 'A high-end smartphone with advanced features.', 500),
     (2, 'macbook', 'apple', 'Powerful laptop for professionals.', 1000),
     (3, 'TV', 'samsung', '55-inch 4K Ultra HD LED TV for stunning visuals.', 2000),
@@ -101,21 +101,21 @@ INSERT INTO `product` (`product_id`, `product_name`, `brand`, `description`, `ba
     (29, 'Wireless headset','Saramonic','Wireless full duplex gaming headset', 140),
     (30, 'Electronic thermometer',null,'Digital Forehead Thermometer Electronic Contactless',54);
 
-# SELECT *
-# FROM `product`;
+-- SELECT *
+-- FROM "product";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `product Image`
+-- "product Image"
 
 
 
-# SELECT *
-# FROM `product_image`;
+-- SELECT *
+-- FROM "product_image";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `belongs to`
+-- "belongs to"
 
-INSERT INTO `belongs_to` (`category_id`, `product_id`) VALUES
+INSERT INTO "belongs_to" ("category_id", "product_id") VALUES
     (4, 1),
     (4, 6),
     (5, 11),
@@ -151,165 +151,165 @@ INSERT INTO `belongs_to` (`category_id`, `product_id`) VALUES
     (10, 29),
     (11, 30);
 
-# SELECT *
-# FROM belongs_to;
+-- SELECT *
+-- FROM belongs_to;
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `property`
+-- "property"
 
-INSERT INTO `property` (`property_id`, `property_name`, `value`, `price_increment`) VALUES
+INSERT INTO "property" ("property_id", "property_name", "value", "price_increment") VALUES
     (1, 'Color', 'Black', 0),
     (2, 'Size', 'Large', 100),
     (3, 'capacity', '256 GB', 100),
-    (4, 'camera quality', '4K', 180), # for drones
-    (5, 'Number of additional pieces', 'Extra 100',20); # dominos,legoes
+    (4, 'camera quality', '4K', 180), -- for drones
+    (5, 'Number of additional pieces', 'Extra 100',20); -- dominos,legoes
     
-# SELECT *
-# FROM `property`;
+-- SELECT *
+-- FROM "property";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `variant`
+-- "variant"
 
-INSERT INTO `variant` (`variant_id`, `weight`) VALUES
+INSERT INTO "variant" ("variant_id", "weight") VALUES
     (1, 12.2),
     (2, 1.5),
     (3, 2.0),
     (4, 0.8),
     (5, 1.0);
 
-# SELECT *
-# FROM `variant`;
+-- SELECT *
+-- FROM "variant";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `varies_on`
+--  "varies_on"
 
-INSERT INTO `varies_on` (`product_id`, `property_id`, `variant_id`) VALUES
+INSERT INTO "varies_on" ("product_id", "property_id", "variant_id") VALUES
     (1, 1, 1),
     (1, 2, 2),
     (3, 3, 3),
     (2, 3, 4);
 
-# SELECT *
-# FROM `varies_on`;
+-- SELECT *
+-- FROM "varies_on";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `warehouse` table
+--  "warehouse" table
 
-INSERT INTO `warehouse` (`warehouse_id`, `street_number`, `street_name`, `city`, `zipcode`) VALUES
+INSERT INTO "warehouse" ("warehouse_id", "street_number", "street_name", "city", "zipcode") VALUES
     (1, '123', 'Galle road', 'Katubedda', 12345);
    
-# SELECT *
-# FROM `warehouse`;
+-- SELECT *
+-- FROM "warehouse";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `warehouse_contact`
+--  "warehouse_contact"
 
-INSERT INTO `warehouse_contact` (`telephone_number`, `warehouse_id`) VALUES
+INSERT INTO "warehouse_contact" ("telephone_number", "warehouse_id") VALUES
     ('0776969481', 1);
     
-# SELECT *
-# FROM `warehouse_contact`;
+-- SELECT *
+-- FROM "warehouse_contact";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `inventory`
+-- "inventory"
 
-INSERT INTO `inventory` (`warehouse_id`, `variant_id`, `sku`, `count`) VALUES
+INSERT INTO "inventory" ("warehouse_id", "variant_id", "sku", "count") VALUES
     (1, 1, 'SKU123', 50),
     (1, 2, 'SKU456', 30);
 
-# SELECT *
-# FROM `inventory`;
+-- SELECT *
+-- FROM "inventory";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `user`
+--  "user"
 
-INSERT INTO `user` (`user_id`, `role`) VALUES
+INSERT INTO "user" ("user_id", "role") VALUES
     (1, 'REG_CUST'),
     (2, 'REG_CUST'),
     (3, 'GUEST_CUST');
 
-# SELECT *
-# FROM `user`;
+-- SELECT *
+-- FROM "user";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `registered_customer`
+-- "registered_customer"
 
-INSERT INTO `registered_user` (`user_id`, `email`, `password`, `first_name`, `last_name`) VALUES
+INSERT INTO "registered_user" ("user_id", "email", "password", "first_name", "last_name") VALUES
     (1, 'dulinaperera@gmail.com', 'password123', 'Dulina', 'Perera'),
     (2, 'nethumrathnayake@gmail.com', 'IloveMethmini', 'Nethum', 'Rathnayake');
 
-# SELECT *
-# FROM `registered_customer`;
+-- SELECT *
+-- FROM "registered_customer";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `customer_contact`
+-- "customer_contact"
 
-INSERT INTO `user_contact` (`user_id`, `telephone_number`) VALUES
+INSERT INTO "user_contact" ("user_id", "telephone_number") VALUES
     (1, '0702632639'),
     (2, '0714283876');
 
-# SELECT *
-# FROM `customer_contact`;
+-- SELECT *
+-- FROM "customer_contact";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `customer_address`
+-- "customer_address"
 
-INSERT INTO `user_address` (`address_id`, `user_id`, `street_number`, `street_name`, `city`, `zipcode`) VALUES
+INSERT INTO "user_address" ("address_id", "user_id", "street_number", "street_name", "city", "zipcode") VALUES
     (1, 1, '5/16', 'Sri Dhammaruchi Mawatha', 'Wadduwa', 12560),
     (2, 2, '123', 'Kesbewa Road', 'Kesbewaa', 12345);
 
-# SELECT *
-# FROM `customer_address`;
+-- SELECT *
+-- FROM "customer_address";
 
 -- ---------------------------------------------------------------------------------------------------------------------
---  `cart`
+--  "cart"
 
-INSERT INTO `cart` (`user_id`, `total_price`) VALUES
+INSERT INTO "cart" ("user_id", "total_price") VALUES
     (1, 0),
     (2, 0),
     (3, 0);
 
-# SELECT *
-# FROM `cart`;
+-- SELECT *
+-- FROM "cart";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `cart_item` table
+-- "cart_item" table
 
-INSERT INTO `cart_item` (`user_id`, `variant_id`, `quantity`) VALUES
+INSERT INTO "cart_item" ("user_id", "variant_id", "quantity") VALUES
     (1, 1, 2),
     (2, 3, 1),
     (3, 5, 3);
 
-# SELECT *
-# FROM `cart_item`;
+SELECT *
+FROM "cart_item";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `order` table
+-- "order" table
 
-INSERT INTO `order` (`order_id`, `date`, `total_payment`, `payment_method`, `delivery_method`, `email`, `street_number`, `street_name`, `city`, `zipcode`) VALUES
+INSERT INTO "order" ("order_id", "date", "total_payment", "payment_method", "delivery_method", "email", "street_number", "street_name", "city", "zipcode") VALUES
     (1, '2023-01-15 08:30:00', 149.97, 'Credit Card', 'Express Shipping', 'dulinaperera@gmail.com', '456', 'Godagama', 'Kaluthara', 98765),
     (2, '2023-03-20 10:00:00', 239.97, 'Credit Card', 'Express Shipping', 'nethumrathnayake@gmail.com', '456', 'Kawdana', 'Dehiwala', 98765);
 
-# SELECT *
-# FROM `order`;
+-- SELECT *
+-- FROM "order";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `order_contact`
+-- "order_contact"
 
-INSERT INTO `order_contact` (`order_id`, `telephone_number`) VALUES
+INSERT INTO "order_contact" ("order_id", "telephone_number") VALUES
     (1, '0702632639'),
     (2, '0705654028');
 
-# SELECT *
-# FROM `order_contact`;
+-- SELECT *
+-- FROM "order_contact";
 
 -- ---------------------------------------------------------------------------------------------------------------------
--- `order_item`
+-- "order_item"
 
-INSERT INTO `order_item` (`order_id`, `variant_id`, `warehouse_id`, `count`) VALUES
+INSERT INTO "order_item" ("order_id", "variant_id", "warehouse_id", "count") VALUES
     (1, 1, 1, 2),
     (2, 3, 1, 1),
     (2, 5, 1, 2);
 
-# SELECT *
-# FROM `order_item`;
+-- SELECT *
+-- FROM "order_item";

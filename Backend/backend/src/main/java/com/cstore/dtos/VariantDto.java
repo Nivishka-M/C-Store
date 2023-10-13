@@ -9,5 +9,4 @@ import java.util.List;
 public class VariantDto {
     private List<PropertyDto> properties;
     private BigDecimal weight;
-
 }

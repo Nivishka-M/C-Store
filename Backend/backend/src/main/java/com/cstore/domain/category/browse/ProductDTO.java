@@ -1,4 +1,4 @@
-package com.cstore.domain.category.browsing;
+package com.cstore.domain.category.browse;
 
 import lombok.Data;
 
