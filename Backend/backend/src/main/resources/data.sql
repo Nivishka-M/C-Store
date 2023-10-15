@@ -238,8 +238,8 @@ INSERT INTO "registered_user" ("user_id", "email", "password", "first_name", "la
     (1, 'dulinaperera@gmail.com', 'password123', 'Dulina', 'Perera', FALSE, TRUE),
     (2, 'nethumrathnayake@gmail.com', 'IloveMethmini', 'Nethum', 'Rathnayake', FALSE, TRUE);
 
-SELECT *
-FROM "registered_user";
+-- SELECT *
+-- FROM "registered_user";
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "customer_contact"

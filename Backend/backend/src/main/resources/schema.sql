@@ -361,6 +361,7 @@ $$ LANGUAGE plpgsql;
 -- SELECT *
 -- FROM "images_from_product"(1);
 
+------------------------------------------------------------------------------------------------------------------------
 
 DROP FUNCTION IF EXISTS "count_stocks";
 
@@ -376,8 +377,9 @@ BEGIN
 END
 $$ LANGUAGE plpgsql;
 
--- SELECT count_stocks(1);
+SELECT count_stocks(1);
 
+------------------------------------------------------------------------------------------------------------------------
 
 DROP FUNCTION IF EXISTS "properties_from_product";
 
