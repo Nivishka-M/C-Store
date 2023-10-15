@@ -1,8 +1,8 @@
 package com.cstore.controller;
 
-import com.cstore.dtos.NewProductDto;
-import com.cstore.dtos.ProductDto;
-import com.cstore.services.ProductService;
+import com.cstore.dto.NewProductDto;
+import com.cstore.dto.ProductDto;
+import com.cstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

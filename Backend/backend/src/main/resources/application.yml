@@ -1,7 +1,13 @@
 logging:
   level:
+    com.cstore: DEBUG
     org:
       springframework: DEBUG
+    root: WARN
+    web: INFO
+
+server:
+  port: 8080
 
 spring:
   datasource:

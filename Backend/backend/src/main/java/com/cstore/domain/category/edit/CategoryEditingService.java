@@ -1,8 +1,8 @@
 package com.cstore.domain.category.edit;
 
 import com.cstore.dao.category.CategoryDao;
-import com.cstore.exceptions.CategoryAlreadyExistsException;
-import com.cstore.exceptions.CategoryNotFoundException;
+import com.cstore.exception.CategoryAlreadyExistsException;
+import com.cstore.exception.CategoryNotFoundException;
 import com.cstore.model.category.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

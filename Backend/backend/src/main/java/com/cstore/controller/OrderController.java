@@ -1,7 +1,7 @@
 package com.cstore.controller;
 
-import com.cstore.dtos.OrderDTO;
-import com.cstore.services.OrderService;
+import com.cstore.dto.OrderDTO;
+import com.cstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

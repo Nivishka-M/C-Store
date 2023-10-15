@@ -1,6 +1,6 @@
 package com.cstore.domain.product.select;
 
-import com.cstore.dtos.Product__;
+import com.cstore.dto.Product__;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

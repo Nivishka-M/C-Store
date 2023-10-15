@@ -1,6 +1,6 @@
 package com.cstore.domain.cart.update;
 
-import com.cstore.dtos.CartItem_;
+import com.cstore.dto.CartItem_;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

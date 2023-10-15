@@ -1,9 +1,9 @@
 package com.cstore.controller;
 
-import com.cstore.dtos.WarehouseDTO;
-import com.cstore.dtos.WarehouseVariantDTO;
-import com.cstore.services.InventoryService;
-import com.cstore.services.WarehouseService;
+import com.cstore.dto.WarehouseDTO;
+import com.cstore.dto.WarehouseVariantDTO;
+import com.cstore.service.InventoryService;
+import com.cstore.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.cstore.controller;
 
 import com.cstore.model.cart.Cart;
-import com.cstore.services.CartService;
+import com.cstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.cstore.controller;
 
 import com.cstore.model.category.Category;
-import com.cstore.services.CategoryService;
+import com.cstore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

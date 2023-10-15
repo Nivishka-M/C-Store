@@ -2,8 +2,8 @@ package com.cstore.domain.cart.update;
 
 import com.cstore.dao.cart.CartDao;
 import com.cstore.dao.variant.VariantDao;
-import com.cstore.dtos.CartItem_;
-import com.cstore.exceptions.NoSuchVariantException;
+import com.cstore.dto.CartItem_;
+import com.cstore.exception.NoSuchVariantException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
