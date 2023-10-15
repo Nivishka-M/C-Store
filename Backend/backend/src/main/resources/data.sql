@@ -45,15 +45,15 @@ INSERT INTO "category" ("category_name", "category_description") VALUES
 -- "sub Category"
 
 INSERT INTO "sub_category" ("category_id", "sub_category_id") VALUES
-     (1, 3),
-     (1, 4),
-     (1, 5),
-     (2, 6),
-     (2, 7),
-     (1, 8),
-     (1, 9),
-     (1, 10),
-     (1, 11);
+    (1, 3),
+    (1, 4),
+    (1, 5),
+    (2, 6),
+    (2, 7),
+    (1, 8),
+    (1, 9),
+    (1, 10),
+    (1, 11);
 
 -- SELECT *
 -- FROM "sub_category";
@@ -163,7 +163,7 @@ INSERT INTO "property" ("property_name", "value", "price_increment") VALUES
     ('capacity', '256 GB', 100),
     ('camera quality', '4K', 180), -- for drones
     ('Number of additional pieces', 'Extra 100',20); -- dominos,legoes
-    
+
 -- SELECT *
 -- FROM "property";
 
@@ -197,7 +197,7 @@ INSERT INTO "varies_on" ("product_id", "property_id", "variant_id") VALUES
 
 INSERT INTO "warehouse" ("street_number", "street_name", "city", "zipcode") VALUES
     ('123', 'Galle road', 'Katubedda', 12345);
-   
+
 -- SELECT *
 -- FROM "warehouse";
 
@@ -206,7 +206,7 @@ INSERT INTO "warehouse" ("street_number", "street_name", "city", "zipcode") VALU
 
 INSERT INTO "warehouse_contact" ("telephone_number", "warehouse_id") VALUES
     ('0776969481', 1);
-    
+
 -- SELECT *
 -- FROM "warehouse_contact";
 
@@ -234,9 +234,9 @@ INSERT INTO "user" ("role") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "registered_customer"
 
-INSERT INTO "registered_user" ("user_id", "email", "password", "first_name", "last_name") VALUES
-    (1, 'dulinaperera@gmail.com', 'password123', 'Dulina', 'Perera'),
-    (2, 'nethumrathnayake@gmail.com', 'IloveMethmini', 'Nethum', 'Rathnayake');
+INSERT INTO "registered_user" ("user_id", "email", "password", "first_name", "last_name", "locked", "enabled") VALUES
+    (1, 'dulinaperera@gmail.com', 'password123', 'Dulina', 'Perera', FALSE, TRUE),
+    (2, 'nethumrathnayake@gmail.com', 'IloveMethmini', 'Nethum', 'Rathnayake', FALSE, TRUE);
 
 -- SELECT *
 -- FROM "registered_customer";
@@ -254,9 +254,9 @@ INSERT INTO "user_contact" ("user_id", "telephone_number") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "customer_address"
 
-INSERT INTO "user_address" ("address_id", "user_id", "street_number", "street_name", "city", "zipcode") VALUES
-    (1, 1, '5/16', 'Sri Dhammaruchi Mawatha', 'Wadduwa', 12560),
-    (2, 2, '123', 'Kesbewa Road', 'Kesbewaa', 12345);
+INSERT INTO "user_address" ("user_id", "street_number", "street_name", "city", "zipcode") VALUES
+    (1, '5/16', 'Sri Dhammaruchi Mawatha', 'Wadduwa', 12560),
+    (2, '123', 'Kesbewa Road', 'Kesbewaa', 12345);
 
 -- SELECT *
 -- FROM "customer_address";

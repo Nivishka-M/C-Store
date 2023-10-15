@@ -4,16 +4,22 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
+
+@Entity
+@Table(name = "registered_user", schema = "cstore")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
-@Table(name = "registered_user", schema = "cstore")
-public class RegisteredUser {
+public class RegisteredUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
@@ -26,7 +32,7 @@ public class RegisteredUser {
     @ToString.Exclude
     private User user;
 
-    @Column(name = "email", length = 60)
+    @Column(name = "email", length = 60, unique = true)
     private String email;
 
     @Column(name = "password", length = 60)
@@ -37,4 +43,40 @@ public class RegisteredUser {
 
     @Column(name = "last_name", length = 20)
     private String lastName;
+
+    @Column(name = "locked", nullable = false)
+    private Boolean locked;
+
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(user.getRole().name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !getLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getEnabled();
+    }
 }
