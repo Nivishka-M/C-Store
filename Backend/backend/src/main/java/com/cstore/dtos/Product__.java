@@ -1,13 +1,11 @@
 package com.cstore.dtos;
 
-import com.cstore.domain.product.select.ProductSelectionProperty;
-import com.cstore.models.Image;
-import com.cstore.models.Property;
+import com.cstore.model.product.Image;
+import com.cstore.model.product.Property;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class Product__ {

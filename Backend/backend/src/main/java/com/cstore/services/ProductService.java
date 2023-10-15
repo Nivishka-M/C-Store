@@ -1,13 +1,13 @@
 package com.cstore.services;
 
-import com.cstore.daos.product.ProductDao;
-import com.cstore.daos.varieson.VariesOnDAO;
+import com.cstore.dao.product.ProductDao;
+import com.cstore.dao.varieson.VariesOnDAO;
 import com.cstore.dtos.NewProductDto;
 import com.cstore.dtos.ProductDto;
 import com.cstore.dtos.PropertyDto;
 import com.cstore.exceptions.NoSuchProductException;
-import com.cstore.models.Product;
-import com.cstore.models.VariesOn;
+import com.cstore.model.product.Product;
+import com.cstore.model.product.VariesOn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

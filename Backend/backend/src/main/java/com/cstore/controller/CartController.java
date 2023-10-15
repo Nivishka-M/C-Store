@@ -1,6 +1,6 @@
 package com.cstore.controller;
 
-import com.cstore.models.Cart;
+import com.cstore.model.cart.Cart;
 import com.cstore.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

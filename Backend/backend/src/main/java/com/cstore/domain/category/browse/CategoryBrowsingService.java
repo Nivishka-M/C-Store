@@ -1,11 +1,11 @@
 package com.cstore.domain.category.browse;
 
-import com.cstore.daos.category.CategoryDao;
-import com.cstore.daos.product.ProductDao;
-import com.cstore.daos.property.PropertyDao;
-import com.cstore.models.Category;
-import com.cstore.models.Product;
-import com.cstore.models.Property;
+import com.cstore.dao.category.CategoryDao;
+import com.cstore.dao.product.ProductDao;
+import com.cstore.dao.property.PropertyDao;
+import com.cstore.model.category.Category;
+import com.cstore.model.product.Product;
+import com.cstore.model.product.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class CategoryBrowsingService {
         this.propertyDao = propertyDao;
     }
 
-    public List<Category> getAllBaseCategories() throws SQLException {
+    public List<Category> getAllBaseCategories() {
         return categoryDao.findAllBaseCategories();
     }
 

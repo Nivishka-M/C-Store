@@ -25,18 +25,18 @@ DELETE FROM "category";
 -- ---------------------------------------------------------------------------------------------------------------------
 --  "category"
 
-INSERT INTO "category" ("category_id", "category_name", "category_description") VALUES
-    (1, 'Electronics', 'Electronic devices and accessories'),
-    (2, 'Toys', 'Childrens toys and games'),
-    (3, 'Tvs', 'LCD, LED display TVs'),
-    (4, 'Mobile Phones', 'Android phones,iphones and hot brands'),
-    (5, 'Home Electronic accessories', 'Kitchen,Bathroom,Living and lifestyle electronics'),
-    (6, 'Toys for boys','RC cars ,games, toy guns and more..'),
-    (7, 'Toys for girls','Dolls,teddies, Princess accessories and more..'),
-    (8, 'Laptops','All top brands at best price'),
-    (9, 'Outdoor electronics' , 'Electronic gadgets used in the outdoors'),
-    (10, 'Computer accessories', 'Electronic accessaries related to computers'),
-    (11, 'Medical electronics', 'Electronic medical equipments');
+INSERT INTO "category" ("category_name", "category_description") VALUES
+    ('Electronics', 'Electronic devices and accessories'),
+    ('Toys', 'Childrens toys and games'),
+    ('Tvs', 'LCD, LED display TVs'),
+    ('Mobile Phones', 'Android phones,iphones and hot brands'),
+    ('Home Electronic accessories', 'Kitchen,Bathroom,Living and lifestyle electronics'),
+    ('Toys for boys','RC cars ,games, toy guns and more..'),
+    ('Toys for girls','Dolls,teddies, Princess accessories and more..'),
+    ('Laptops','All top brands at best price'),
+    ('Outdoor electronics' , 'Electronic gadgets used in the outdoors'),
+    ('Computer accessories', 'Electronic accessaries related to computers'),
+    ('Medical electronics', 'Electronic medical equipments');
 
 -- SELECT *
 -- FROM "category";
@@ -69,37 +69,37 @@ INSERT INTO "sub_category" ("category_id", "sub_category_id") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "product"
 
-INSERT INTO "product" ("product_id", "product_name", "brand", "description", "base_price") VALUES
-    (1, 'iphone 14 pro', 'apple', 'A high-end smartphone with advanced features.', 500),
-    (2, 'macbook', 'apple', 'Powerful laptop for professionals.', 1000),
-    (3, 'TV', 'samsung', '55-inch 4K Ultra HD LED TV for stunning visuals.', 2000),
-    (4, 'Toy gun', 'Gunhub', 'A set of essential garden tools for gardening enthusiasts.', 1200),
-    (5, 'Childrens Book', 'StoryTime Publications', 'A captivating childrens book for young readers.', 500),
-    (6, 'Galaxy M04 phone', 'Samsung','One year software and hardware warranty AND the charger included', 105),
-    (7, 'Electronic Digital Weighing Kitchen Scale', 'Tare', 'Large LCD Display with automatic zero resetting + 2 Free batteries', 4.99),
-    (8, 'TV', 'Innovex', '32 Inch LED Frameless TV With 3 Years Company Warranty', 249.99),
-    (9, 'Quadcopter Drone With Camera', 'Hubsan', 'RC Foldable wide angle HD,4K,1080P Camera', 55.99),
-    (10, 'Micro SD SDCC Card', 'Kingston Technology', 'Ultra Large Capacity High Speed 2TB-1TB USB Drive Micro SD', 10.45),
-    (11, 'Bluetooth Earphone with Ear Hook', 'FiiO', 'Suitable for Running Sports. Stereo Buttons Control With Microphone Wireless Headphones', 27.75),
-    (12, 'Toy FARM TRACTOR', null, ' Made of top-grade plastic - for kids', 5.99),
-    (13, 'Simulation Dinosaur', 'Wild Safari','Lifelike Mosasaurus PlesiosaurDunkleosteus Action Figures', 9.20),
-    (14, 'Gorilla female Monkey Model', 'Schleich', 'Squeaky Sound Toy, Children Toy,Action Figure', 12),
-    (15, 'High speed RC Car', 'Rastar', 'Remote Control AE86 Model GTR Vehicle RC Racing Cars', 67.78),
-    (16, 'Bluetooth speaker', 'SONY','Waterproof portable wireless', 250),
-    (17, 'Smart Watch', 'Huawei', 'Smart Watch for Men, Fitness Tracker', 49),
-    (18, 'Dash camera', 'Xiaomi', '3 Channel Dash Cam 2K+1080P With GPS, WiFi', 69),
-    (19, 'Arduino kit', 'Grove', ' Arduino starter kit, improved version', 30),
-    (20, 'Bluetooth receiver', 'LDAC', 'Qualcomm QCC5125 lossless Bluetooth 5.1 receiver', 80),
-    (21, 'Smart stunt dog Toy','Sigma', 'RC Robot Dog Voice Command Programmable Touch-sense',150),
-    (22, 'Six claw dancing robot','Mattel','Limited Edition children Toys Dance Music Robots',230),
-    (23, 'Unicorn plush toy','K-Nex','Soft Stuffed Toy Giant Size Cartoon Dolls Animal Horse',23),
-    (24, 'Football Table Interactive Games','Kidsbele', 'Tabletop Soccer Pinball Toys Classic Parent-Child Interactive',456),
-    (25, 'RC car Lambogini','ARRMA','2.4G Radio Remote Control Sports Cars For Children Racing High Speed Drive',299),
-    (26, 'Electric Domino Train Toy','Lego','Colorful Electric Domino Train Toys Set with 100Pcs Building Blocks',34),
-    (27, 'Luminous Fidget Spinner',null, 'Light Up Changeable Hand Spinners Adult Glowing Spiner Stress Relief Toys',25),
-    (28, 'Electronic Unlock Installation','Fengweima','Electronic Cylinder Tuya Unlock Installation Keyless Tuya Fingerprint Smart Password lock',67),
-    (29, 'Wireless headset','Saramonic','Wireless full duplex gaming headset', 140),
-    (30, 'Electronic thermometer',null,'Digital Forehead Thermometer Electronic Contactless',54);
+INSERT INTO "product" ("product_name", "brand", "description", "base_price") VALUES
+    ('iphone 14 pro', 'apple', 'A high-end smartphone with advanced features.', 500),
+    ('macbook', 'apple', 'Powerful laptop for professionals.', 1000),
+    ('TV', 'samsung', '55-inch 4K Ultra HD LED TV for stunning visuals.', 2000),
+    ('Toy gun', 'Gunhub', 'A set of essential garden tools for gardening enthusiasts.', 1200),
+    ('Childrens Book', 'StoryTime Publications', 'A captivating childrens book for young readers.', 500),
+    ('Galaxy M04 phone', 'Samsung','One year software and hardware warranty AND the charger included', 105),
+    ('Electronic Digital Weighing Kitchen Scale', 'Tare', 'Large LCD Display with automatic zero resetting + 2 Free batteries', 4.99),
+    ('TV', 'Innovex', '32 Inch LED Frameless TV With 3 Years Company Warranty', 249.99),
+    ('Quadcopter Drone With Camera', 'Hubsan', 'RC Foldable wide angle HD,4K,1080P Camera', 55.99),
+    ('Micro SD SDCC Card', 'Kingston Technology', 'Ultra Large Capacity High Speed 2TB-1TB USB Drive Micro SD', 10.45),
+    ('Bluetooth Earphone with Ear Hook', 'FiiO', 'Suitable for Running Sports. Stereo Buttons Control With Microphone Wireless Headphones', 27.75),
+    ('Toy FARM TRACTOR', null, ' Made of top-grade plastic - for kids', 5.99),
+    ('Simulation Dinosaur', 'Wild Safari','Lifelike Mosasaurus PlesiosaurDunkleosteus Action Figures', 9.20),
+    ('Gorilla female Monkey Model', 'Schleich', 'Squeaky Sound Toy, Children Toy,Action Figure', 12),
+    ('High speed RC Car', 'Rastar', 'Remote Control AE86 Model GTR Vehicle RC Racing Cars', 67.78),
+    ('Bluetooth speaker', 'SONY','Waterproof portable wireless', 250),
+    ('Smart Watch', 'Huawei', 'Smart Watch for Men, Fitness Tracker', 49),
+    ('Dash camera', 'Xiaomi', '3 Channel Dash Cam 2K+1080P With GPS, WiFi', 69),
+    ('Arduino kit', 'Grove', ' Arduino starter kit, improved version', 30),
+    ('Bluetooth receiver', 'LDAC', 'Qualcomm QCC5125 lossless Bluetooth 5.1 receiver', 80),
+    ('Smart stunt dog Toy','Sigma', 'RC Robot Dog Voice Command Programmable Touch-sense',150),
+    ('Six claw dancing robot','Mattel','Limited Edition children Toys Dance Music Robots',230),
+    ('Unicorn plush toy','K-Nex','Soft Stuffed Toy Giant Size Cartoon Dolls Animal Horse',23),
+    ('Football Table Interactive Games','Kidsbele', 'Tabletop Soccer Pinball Toys Classic Parent-Child Interactive',456),
+    ('RC car Lambogini','ARRMA','2.4G Radio Remote Control Sports Cars For Children Racing High Speed Drive',299),
+    ('Electric Domino Train Toy','Lego','Colorful Electric Domino Train Toys Set with 100Pcs Building Blocks',34),
+    ('Luminous Fidget Spinner',null, 'Light Up Changeable Hand Spinners Adult Glowing Spiner Stress Relief Toys',25),
+    ('Electronic Unlock Installation','Fengweima','Electronic Cylinder Tuya Unlock Installation Keyless Tuya Fingerprint Smart Password lock',67),
+    ('Wireless headset','Saramonic','Wireless full duplex gaming headset', 140),
+    ('Electronic thermometer',null,'Digital Forehead Thermometer Electronic Contactless',54);
 
 -- SELECT *
 -- FROM "product";
@@ -157,12 +157,12 @@ INSERT INTO "belongs_to" ("category_id", "product_id") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "property"
 
-INSERT INTO "property" ("property_id", "property_name", "value", "price_increment") VALUES
-    (1, 'Color', 'Black', 0),
-    (2, 'Size', 'Large', 100),
-    (3, 'capacity', '256 GB', 100),
-    (4, 'camera quality', '4K', 180), -- for drones
-    (5, 'Number of additional pieces', 'Extra 100',20); -- dominos,legoes
+INSERT INTO "property" ("property_name", "value", "price_increment") VALUES
+    ('Color', 'Black', 0),
+    ('Size', 'Large', 100),
+    ('capacity', '256 GB', 100),
+    ('camera quality', '4K', 180), -- for drones
+    ('Number of additional pieces', 'Extra 100',20); -- dominos,legoes
     
 -- SELECT *
 -- FROM "property";
@@ -170,12 +170,12 @@ INSERT INTO "property" ("property_id", "property_name", "value", "price_incremen
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "variant"
 
-INSERT INTO "variant" ("variant_id", "weight") VALUES
-    (1, 12.2),
-    (2, 1.5),
-    (3, 2.0),
-    (4, 0.8),
-    (5, 1.0);
+INSERT INTO "variant" ("weight") VALUES
+    (12.2),
+    (1.5),
+    (2.0),
+    (0.8),
+    (1.0);
 
 -- SELECT *
 -- FROM "variant";
@@ -195,8 +195,8 @@ INSERT INTO "varies_on" ("product_id", "property_id", "variant_id") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 --  "warehouse" table
 
-INSERT INTO "warehouse" ("warehouse_id", "street_number", "street_name", "city", "zipcode") VALUES
-    (1, '123', 'Galle road', 'Katubedda', 12345);
+INSERT INTO "warehouse" ("street_number", "street_name", "city", "zipcode") VALUES
+    ('123', 'Galle road', 'Katubedda', 12345);
    
 -- SELECT *
 -- FROM "warehouse";
@@ -223,10 +223,10 @@ INSERT INTO "inventory" ("warehouse_id", "variant_id", "sku", "count") VALUES
 -- ---------------------------------------------------------------------------------------------------------------------
 --  "user"
 
-INSERT INTO "user" ("user_id", "role") VALUES
-    (1, 'REG_CUST'),
-    (2, 'REG_CUST'),
-    (3, 'GUEST_CUST');
+INSERT INTO "user" ("role") VALUES
+    ('REG_CUST'),
+    ('REG_CUST'),
+    ('GUEST_CUST');
 
 -- SELECT *
 -- FROM "user";
@@ -280,15 +280,15 @@ INSERT INTO "cart_item" ("user_id", "variant_id", "quantity") VALUES
     (2, 3, 1),
     (3, 5, 3);
 
-SELECT *
-FROM "cart_item";
+-- SELECT *
+-- FROM "cart_item";
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "order" table
 
-INSERT INTO "order" ("order_id", "date", "total_payment", "payment_method", "delivery_method", "email", "street_number", "street_name", "city", "zipcode") VALUES
-    (1, '2023-01-15 08:30:00', 149.97, 'Credit Card', 'Express Shipping', 'dulinaperera@gmail.com', '456', 'Godagama', 'Kaluthara', 98765),
-    (2, '2023-03-20 10:00:00', 239.97, 'Credit Card', 'Express Shipping', 'nethumrathnayake@gmail.com', '456', 'Kawdana', 'Dehiwala', 98765);
+INSERT INTO "order" ("date", "total_payment", "payment_method", "delivery_method", "email", "street_number", "street_name", "city", "zipcode") VALUES
+    ('2023-01-15 08:30:00', 149.97, 'Credit Card', 'Express Shipping', 'dulinaperera@gmail.com', '456', 'Godagama', 'Kaluthara', 98765),
+    ('2023-03-20 10:00:00', 239.97, 'Credit Card', 'Express Shipping', 'nethumrathnayake@gmail.com', '456', 'Kawdana', 'Dehiwala', 98765);
 
 -- SELECT *
 -- FROM "order";

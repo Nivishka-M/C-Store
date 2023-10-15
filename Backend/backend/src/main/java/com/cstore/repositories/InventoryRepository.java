@@ -1,9 +1,8 @@
 package com.cstore.repositories;
 
-import com.cstore.dtos.WarehouseVariantDTO;
-import com.cstore.models.Inventory;
-import com.cstore.models.InventoryId;
-import com.cstore.models.Warehouse;
+import com.cstore.model.warehouse.Inventory;
+import com.cstore.model.warehouse.InventoryId;
+import com.cstore.model.warehouse.Warehouse;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

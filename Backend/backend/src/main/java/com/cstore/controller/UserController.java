@@ -1,7 +1,7 @@
 package com.cstore.controller;
 
-import com.cstore.models.User;
-import com.cstore.models.RegisteredUser;
+import com.cstore.model.user.User;
+import com.cstore.model.user.RegisteredUser;
 import com.cstore.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -23,21 +23,21 @@ public class ProductSelectionController {
     }
 
     @Operation(
-            description = """
-                    Not Recommended! Heavy load on the entire system.
-                    If invoked, should be invoked when a product is selected.
-                    Returns all the necessary details of the product including its properties, categories it belongs to & stock count.""",
-            method = "Find Product by Id",
-            responses = {
-                @ApiResponse(
-                    content = @Content(
-                        mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Product__.class))
-                    ),
-                    description = "Success",
-                    responseCode = "200"
-                )
-            }
+        description = """
+            Not Recommended! Heavy load on the entire system.
+            If invoked, should be invoked when a product is selected.
+            Returns all the necessary details of the product including its properties, categories it belongs to & stock count.""",
+        method = "Find Product by Id",
+        responses = {
+            @ApiResponse(
+                content = @Content(
+                    mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = Product__.class))
+                ),
+                description = "Success",
+                responseCode = "200"
+            )
+        }
     )
     @RequestMapping(method = RequestMethod.GET, path = "/{product_id}")
     public Product__ findById(@PathVariable(name = "product_id", required = true) Long productId) {

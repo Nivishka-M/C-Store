@@ -1,17 +1,11 @@
 package com.cstore.domain.cart.update;
 
-import com.cstore.daos.cart.CartDao;
-import com.cstore.daos.variant.VariantDao;
+import com.cstore.dao.cart.CartDao;
+import com.cstore.dao.variant.VariantDao;
 import com.cstore.dtos.CartItem_;
 import com.cstore.exceptions.NoSuchVariantException;
-import com.cstore.exceptions.SparseStocksException;
-import com.cstore.models.Variant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service
 public class CartUpdatingService {

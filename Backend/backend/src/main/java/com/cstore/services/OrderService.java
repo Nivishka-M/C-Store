@@ -1,18 +1,17 @@
 package com.cstore.services;
 
-import com.cstore.daos.order.OrderDao;
-import com.cstore.daos.ordercontact.OrderContactDao;
+import com.cstore.dao.order.OrderDao;
+import com.cstore.dao.ordercontact.OrderContactDao;
 import com.cstore.dtos.OrderDTO;
 import com.cstore.exceptions.OrderNotFoundException;
-import com.cstore.models.Order;
-import com.cstore.models.OrderContact;
+import com.cstore.model.order.Order;
+import com.cstore.model.order.OrderContact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

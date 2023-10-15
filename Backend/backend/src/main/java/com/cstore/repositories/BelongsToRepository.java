@@ -1,8 +1,8 @@
 package com.cstore.repositories;
 
-import com.cstore.models.BelongsTo;
-import com.cstore.models.BelongsToId;
-import com.cstore.models.Category;
+import com.cstore.model.category.BelongsTo;
+import com.cstore.model.category.BelongsToId;
+import com.cstore.model.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

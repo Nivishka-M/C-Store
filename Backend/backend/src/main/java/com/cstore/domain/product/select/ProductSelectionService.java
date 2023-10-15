@@ -1,16 +1,16 @@
 package com.cstore.domain.product.select;
 
-import com.cstore.daos.category.CategoryDao;
-import com.cstore.daos.product.ProductDao;
-import com.cstore.daos.product.image.ImageDao;
-import com.cstore.daos.property.PropertyDao;
+import com.cstore.dao.category.CategoryDao;
+import com.cstore.dao.product.ProductDao;
+import com.cstore.dao.product.image.ImageDao;
+import com.cstore.dao.property.PropertyDao;
 import com.cstore.dtos.Product__;
 import com.cstore.dtos._Category;
 import com.cstore.exceptions.NoSuchProductException;
-import com.cstore.models.Category;
-import com.cstore.models.Image;
-import com.cstore.models.Product;
-import com.cstore.models.Property;
+import com.cstore.model.category.Category;
+import com.cstore.model.product.Image;
+import com.cstore.model.product.Product;
+import com.cstore.model.product.Property;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

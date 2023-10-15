@@ -1,6 +1,6 @@
 package com.cstore.repositories;
 
-import com.cstore.models.User;
+import com.cstore.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

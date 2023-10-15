@@ -2,8 +2,8 @@ package com.cstore.services;
 
 import com.cstore.dtos.WarehouseDTO;
 import com.cstore.exceptions.WarehouseNotFoundException;
-import com.cstore.models.Warehouse;
-import com.cstore.models.WarehouseContact;
+import com.cstore.model.warehouse.Warehouse;
+import com.cstore.model.warehouse.WarehouseContact;
 import com.cstore.repositories.WarehouseContactRepository;
 import com.cstore.repositories.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;

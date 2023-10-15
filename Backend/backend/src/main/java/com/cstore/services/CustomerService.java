@@ -2,9 +2,9 @@ package com.cstore.services;
 
 import com.cstore.exceptions.CustomerAlreadyExistsException;
 import com.cstore.exceptions.InvalidArgumentException;
-import com.cstore.models.Role;
-import com.cstore.models.User;
-import com.cstore.models.RegisteredUser;
+import com.cstore.model.user.Role;
+import com.cstore.model.user.User;
+import com.cstore.model.user.RegisteredUser;
 import com.cstore.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

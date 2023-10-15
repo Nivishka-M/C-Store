@@ -1,11 +1,11 @@
 package com.cstore.domain.product.browse;
 
-import com.cstore.daos.product.ProductDao;
-import com.cstore.daos.property.PropertyDao;
-import com.cstore.daos.varieson.VariesOnDAO;
+import com.cstore.dao.product.ProductDao;
+import com.cstore.dao.property.PropertyDao;
+import com.cstore.dao.varieson.VariesOnDAO;
 import com.cstore.domain.category.browse.ProductDTO;
-import com.cstore.models.Product;
-import com.cstore.models.Property;
+import com.cstore.model.product.Product;
+import com.cstore.model.product.Property;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
