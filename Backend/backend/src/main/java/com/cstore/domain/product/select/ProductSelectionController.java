@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/products/select")
+@RequestMapping(path = "api/v1/user/products/select")
 @Tag(name = "Select Product")
 public class ProductSelectionController {
     private final ProductSelectionService productSelectionService;

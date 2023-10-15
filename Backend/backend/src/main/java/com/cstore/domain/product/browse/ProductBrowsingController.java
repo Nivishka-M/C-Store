@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/products/browse")
+@RequestMapping(path = "api/v1/user/products/browse")
 @Tag(name = "Browse Products")
 public class ProductBrowsingController {
     private final ProductBrowsingService productService;

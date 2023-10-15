@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public Optional<RegisteredUser> findRegisteredUserByEmail(String email) {
+    public Optional<RegisteredUser> findUserByEmail(String email) {
         try {
             String sql = "SELECT * " +
                          "FROM \"registered_user\" " +
