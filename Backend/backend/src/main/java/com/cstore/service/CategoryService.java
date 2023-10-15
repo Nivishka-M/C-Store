@@ -84,12 +84,12 @@ public class CategoryService {
 
 
 
-    /*private List<ProductDTO> convert(Category category) {
+    /*private List<ProductDto> convert(Category category) {
         List<BelongsTo> belongings = belongsToRepository.findByCategory(category);
-        List<ProductDTO> products = new ArrayList<>();
+        List<ProductDto> products = new ArrayList<>();
 
         for (BelongsTo belonging : belongings) {
-            ProductDTO productDTO = new ProductDTO();
+            ProductDto productDTO = new ProductDto();
             List<ProductSelectionProperty> properties = new ArrayList<>();
 
             WholeProduct product = belonging.getProduct();
@@ -119,7 +119,7 @@ public class CategoryService {
         return products;
     }*/
 
-    /*public List<ProductDTO> getAllProducts(Long categoryId) {
+    /*public List<ProductDto> getAllProducts(Long categoryId) {
         return productRepository.findAllProducts();
     }*/
 }

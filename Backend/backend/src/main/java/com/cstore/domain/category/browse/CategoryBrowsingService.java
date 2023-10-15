@@ -37,12 +37,12 @@ public class CategoryBrowsingService {
         return categoryDao.findAllDirectSubCategories(categoryId);
     }
 
-    public List<ProductDTO> getAllProductsBelongingToCategory(Long categoryId) throws SQLException {
-        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+    public List<ProductDto> getAllProductsBelongingToCategory(Long categoryId) throws SQLException {
+        List<ProductDto> productDtos = new ArrayList<ProductDto>();
 
         List<Product> products = productDao.findAllByCategoryId(categoryId);
         for (Product product : products) {
-            ProductDTO productDTO = new ProductDTO();
+            ProductDto productDTO = new ProductDto();
 
             productDTO.setProductId(product.getProductId());
             productDTO.setProductName(product.getProductName());
@@ -67,9 +67,9 @@ public class CategoryBrowsingService {
             }
             productDTO.setProperties(propertyMap);
 
-            productDTOs.add(productDTO);
+            productDtos.add(productDTO);
         }
 
-        return productDTOs;
+        return productDtos;
     }
 }

@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     @Transactional
-    public Optional<RegisteredUser> findUserByEmail(String email) {
+    public Optional<RegisteredUser> findByEmail(String email) {
         try {
             String sql = "SELECT * " +
                          "FROM \"registered_user\" " +
@@ -38,7 +38,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User saveUser(User user) {
-        String sql = "INSERT INTO \"user\" (\"role\") VALUES(?) RETURNING \"user_id\";";
+        String sql = "INSERT INTO \"user\" (\"role\") " +
+                     "VALUES(?) " +
+                     "RETURNING \"user_id\";";
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(

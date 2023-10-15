@@ -26,8 +26,8 @@ public class UserContactDaoImpl implements UserContactDao {
             connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                ps.setLong(1, userContact.getId().getUserId());
-                ps.setInt(2, userContact.getId().getTelephoneNumber());
+                ps.setLong(1, userContact.getUserContactId().getUserId());
+                ps.setInt(2, userContact.getUserContactId().getTelephoneNumber());
 
                 return ps;
             }

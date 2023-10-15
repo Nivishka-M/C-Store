@@ -3,7 +3,7 @@ package com.cstore.domain.product.browse;
 import com.cstore.dao.product.ProductDao;
 import com.cstore.dao.property.PropertyDao;
 import com.cstore.dao.varieson.VariesOnDAO;
-import com.cstore.domain.category.browse.ProductDTO;
+import com.cstore.domain.category.browse.ProductDto;
 import com.cstore.model.product.Product;
 import com.cstore.model.product.Property;
 import org.springframework.stereotype.Service;
@@ -28,12 +28,12 @@ public class ProductBrowsingService {
     }
 
 
-    public List<ProductDTO> getAllProducts() throws SQLException {
-        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+    public List<ProductDto> getAllProducts() throws SQLException {
+        List<ProductDto> productDtos = new ArrayList<ProductDto>();
 
         List<Product> products = productDAO.findAll();
         for (Product product : products) {
-            ProductDTO productDTO = new ProductDTO();
+            ProductDto productDTO = new ProductDto();
 
             productDTO.setProductId(product.getProductId());
             productDTO.setProductName(product.getProductName());
@@ -58,18 +58,18 @@ public class ProductBrowsingService {
             }
             productDTO.setProperties(propertyMap);
 
-            productDTOs.add(productDTO);
+            productDtos.add(productDTO);
         }
 
-        return productDTOs;
+        return productDtos;
     }
 
-    public List<ProductDTO> getProductByName(String productName) throws SQLException {
-        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+    public List<ProductDto> getProductByName(String productName) throws SQLException {
+        List<ProductDto> productDtos = new ArrayList<ProductDto>();
 
         List<Product> products = productDAO.findByName(productName);
         for (Product product : products) {
-            ProductDTO productDTO = new ProductDTO();
+            ProductDto productDTO = new ProductDto();
 
             productDTO.setProductId(product.getProductId());
             productDTO.setProductName(product.getProductName());
@@ -94,9 +94,9 @@ public class ProductBrowsingService {
             }
             productDTO.setProperties(propertyMap);
 
-            productDTOs.add(productDTO);
+            productDtos.add(productDTO);
         }
 
-        return productDTOs;
+        return productDtos;
     }
 }

@@ -44,11 +44,11 @@ public class RegisteredUser implements UserDetails {
     @Column(name = "last_name", length = 20)
     private String lastName;
 
-    @Column(name = "locked", nullable = false)
-    private Boolean locked;
-
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
+
+    @Column(name = "locked", nullable = false)
+    private Boolean locked;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

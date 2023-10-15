@@ -6,7 +6,7 @@ import com.cstore.model.user.User;
 import java.util.Optional;
 
 public interface UserDao {
-    Optional<RegisteredUser> findUserByEmail(String email);
+    Optional<RegisteredUser> findByEmail(String email);
 
     User saveUser(User user);
 

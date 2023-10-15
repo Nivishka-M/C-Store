@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +18,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/api/v1/user/categories/browse") @Tag(name = "Browse Categories", description = "Provides controller methods for browsing categories.")
+@RequestMapping(path = "/api/v1/user/categories/browse")
+@Tag(name = "Browse Categories", description = "Provides controller methods for browsing categories.")
 public class CategoryBrowsingController {
     private final CategoryBrowsingService categoryBrowsingService;
 
@@ -67,7 +67,7 @@ public class CategoryBrowsingController {
                     @ApiResponse(
                             content = @Content(
                                     mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class))
+                                    array = @ArraySchema(schema = @Schema(implementation = ProductDto.class))
                             ),
                             description = "Success",
                             responseCode = "200"
@@ -76,7 +76,7 @@ public class CategoryBrowsingController {
             summary = "Returns all products (with properties of non-monetary value) belonging to a category, given the category identifier."
     )
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/products")
-    public List<ProductDTO> getAllProductsBelongingToCategory(@PathVariable(name = "id") Long categoryId) throws SQLException {
+    public List<ProductDto> getAllProductsBelongingToCategory(@PathVariable(name = "id") Long categoryId) throws SQLException {
         return categoryBrowsingService.getAllProductsBelongingToCategory(categoryId);
     }
 }

@@ -31,3 +31,8 @@ spring:
         classpath:schema.sql
       data-locations:
         classpath:data.sql
+
+token:
+  expiration-ms: 600000
+  secret:
+    key: ${SECRET_KEY}
