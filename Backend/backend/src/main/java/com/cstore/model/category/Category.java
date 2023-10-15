@@ -1,12 +1,20 @@
 package com.cstore.model.category;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "category", schema = "cstore/public")
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "category_id", nullable = false)
     private Long categoryId;
 
@@ -16,28 +24,4 @@ public class Category {
     @Lob
     @Column(name = "category_description")
     private String categoryDescription;
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
 }

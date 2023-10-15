@@ -1,9 +1,11 @@
 package com.cstore.dao.product;
 
 import com.cstore.model.product.Product;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+
+@RequiredArgsConstructor
 public class ProductDaoImpl implements ProductDao {
     private final JdbcTemplate jdbcTemplate;
 
@@ -22,10 +26,6 @@ public class ProductDaoImpl implements ProductDao {
     String password = "cstore_GRP28_CSE21";
 
     Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
-
-    public ProductDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public Optional<Product> findProduct(Product unknown) throws SQLException {
@@ -110,16 +110,22 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+
+    @Comment("This method is perfect.")
     public Optional<Product> findById(Long productId) {
         String sql = "SELECT * " +
-                     "FROM product " +
-                     "WHERE product_id = ?;";
+                     "FROM \"product\" " +
+                     "WHERE \"product_id\" = ?;";
 
         try {
-            Product product = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Product.class), productId);
+            Product product = jdbcTemplate.queryForObject(
+                sql,
+                new BeanPropertyRowMapper<>(Product.class),
+                productId
+            );
 
             return Optional.of(product);
-        } catch (EmptyResultDataAccessException e) {
+        } catch (DataAccessException | NullPointerException e) {
             return Optional.empty();
         }
     }
@@ -208,6 +214,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+
+    @Comment("This method is perfect.")
     public Integer countStocks(Long productId) {
         String sql = "SELECT count_stocks(?);";
 

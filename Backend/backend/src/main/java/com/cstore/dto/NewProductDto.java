@@ -14,5 +14,5 @@ public class NewProductDto {
     private String description;
     private String imageUrl;
     private List<VariantDto> variants;
-    private List<_Category> categories;
+    private List<ProductSelectionCategory> categories;
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PropertyDao {
-    public Optional<Property> findById(Long propertyId) throws SQLException;
+    public Optional<Property> findById(Long propertyId);
 
     List<Property> findByProductId(Long productId);
 }

@@ -2,6 +2,7 @@ package com.cstore.dao.category;
 
 import com.cstore.model.category.Category;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+
 @RequiredArgsConstructor
 public class CategoryDaoImpl implements CategoryDao {
     private final JdbcTemplate jdbcTemplate;
@@ -113,6 +115,19 @@ public class CategoryDaoImpl implements CategoryDao {
         );
     }
 
+    @Override
+
+    @Comment("This method is perfect.")
+    public List<Category> findByProductId(Long productId) {
+        String sql = "SELECT * " +
+                     "FROM \"categories_from_product\"(?);";
+
+        return jdbcTemplate.query(
+            sql,
+            preparedStatement -> preparedStatement.setLong(1, productId),
+            new BeanPropertyRowMapper<>(Category.class)
+        );
+    }
 
     @Override
     public List<Category> findAllBaseCategories() {
@@ -136,17 +151,6 @@ public class CategoryDaoImpl implements CategoryDao {
         return jdbcTemplate.query(
                 sql,
                 preparedStatement -> preparedStatement.setLong(1, categoryId),
-                new BeanPropertyRowMapper<>(Category.class)
-        );
-    }
-
-    @Override
-    public List<Category> findByProductId(Long productId) {
-        String sql = "CALL categories_from_product(?);";
-
-        return jdbcTemplate.query(
-                sql,
-                preparedStatement -> preparedStatement.setLong(1, productId),
                 new BeanPropertyRowMapper<>(Category.class)
         );
     }

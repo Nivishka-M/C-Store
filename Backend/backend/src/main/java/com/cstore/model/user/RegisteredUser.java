@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "registered_user", schema = "cstore")
+
 @Getter
 @Setter
 @Builder

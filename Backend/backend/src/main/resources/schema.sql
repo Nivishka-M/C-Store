@@ -81,11 +81,11 @@ CREATE TABLE "product" (
 DROP TABLE IF EXISTS "product_image";
 
 CREATE TABLE "product_image" (
-                                 "image_id"   BIGINT,
-                                 "product_id" BIGINT,
-                                 PRIMARY KEY ("image_id"),
-                                 FOREIGN KEY ("product_id") REFERENCES "product" ("product_id") ON DELETE CASCADE,
-                                 FOREIGN KEY ("image_id") REFERENCES "image" ("image_id") ON DELETE CASCADE
+    "image_id"   BIGINT,
+    "product_id" BIGINT,
+    PRIMARY KEY ("image_id"),
+    FOREIGN KEY ("product_id") REFERENCES "product" ("product_id") ON DELETE CASCADE,
+    FOREIGN KEY ("image_id") REFERENCES "image" ("image_id") ON DELETE CASCADE
 );
 
 -- Belongs to
@@ -103,12 +103,12 @@ CREATE TABLE "belongs_to" (
 DROP TABLE IF EXISTS "property";
 
 CREATE TABLE "property" (
-                            "property_id"     BIGSERIAL,
-                            "property_name"   VARCHAR (40),
-                            "value"           VARCHAR (40),
-                            "image_url"       VARCHAR (100),
-                            "price_increment" NUMERIC (10, 2),
-                            PRIMARY KEY ("property_id")
+    "property_id"     BIGSERIAL,
+    "property_name"   VARCHAR (40),
+    "value"           VARCHAR (40),
+    "image_url"       VARCHAR (100),
+    "price_increment" NUMERIC (10, 2),
+    PRIMARY KEY ("property_id")
 );
 
 -- Variant
@@ -281,6 +281,7 @@ CREATE TABLE "order_item" (
 );
 
 
+------------------------------------------------------------------------------------------------------------------------
 -- VIEWS----------------------------------------------------------------------------------------------------------------
 
 
@@ -294,10 +295,8 @@ WHERE "category_id" NOT IN (SELECT DISTINCT "sub_category_id"
 -- SELECT * FROM "base_category";
 
 
+------------------------------------------------------------------------------------------------------------------------
 -- PROCEDURES-----------------------------------------------------------------------------------------------------------
-
-
-DROP FUNCTION IF EXISTS "products_from_category"(BIGINT);
 
 CREATE OR REPLACE FUNCTION "products_from_category"(c_id BIGINT)
     RETURNS TABLE (
@@ -320,41 +319,37 @@ $$ LANGUAGE plpgsql;
 -- SELECT *
 -- FROM "products_from_category"(4);
 
-
-DROP FUNCTION IF EXISTS "categories_from_product";
+------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION "categories_from_product"(p_id BIGINT)
     RETURNS TABLE (
-                      "category_id"          BIGINT,
-                      "category_name"        VARCHAR (40),
-                      "category_description" TEXT
-                  )
-AS $$
+        "category_id"          BIGINT,
+        "category_name"        VARCHAR (40),
+        "category_description" TEXT
+    ) AS $$
 BEGIN
     RETURN QUERY
-        SELECT DISTINCT "category".*
-        FROM "category", "belongs_to" NATURAL LEFT OUTER JOIN "product"
-        WHERE "category"."category_id" = "belongs_to"."category_id" AND "belongs_to"."product_id" = p_id;
+        SELECT DISTINCT c.*
+        FROM "category" AS c NATURAL LEFT OUTER JOIN "belongs_to" AS bt NATURAL LEFT OUTER JOIN "product" AS p
+        WHERE p."product_id" = p_id;
 END
 $$ LANGUAGE plpgsql;
 
 -- SELECT *
--- FROM "categories_from_product"(17);
+-- FROM "categories_from_product"(1);
 
-
-DROP FUNCTION IF EXISTS "images_from_product";
+------------------------------------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION "images_from_product"(p_id BIGINT)
     RETURNS TABLE (
-                      "image_id" BIGINT,
-                      "url"      VARCHAR (100)
-                  )
-AS $$
+        "image_id" BIGINT,
+        "url"      VARCHAR (100)
+    ) AS $$
 BEGIN
     RETURN QUERY
-        SELECT DISTINCT "image".*
-        FROM "image", "product_image" NATURAL LEFT OUTER JOIN "product"
-        WHERE "image".image_id = "product_image".image_id AND "product_image"."product_id" = p_id;
+        SELECT DISTINCT i.*
+        FROM "image" AS i NATURAL LEFT OUTER JOIN "product_image" AS pi NATURAL LEFT OUTER JOIN "product" AS p
+        WHERE p."product_id" = p_id;
 END
 $$ LANGUAGE plpgsql;
 
@@ -363,54 +358,50 @@ $$ LANGUAGE plpgsql;
 
 ------------------------------------------------------------------------------------------------------------------------
 
-DROP FUNCTION IF EXISTS "count_stocks";
-
-CREATE OR REPLACE FUNCTION "count_stocks"(p_id BIGINT)
-    RETURNS INTEGER AS $$
-DECLARE stock_count INTEGER;
-BEGIN
-    SELECT SUM("count") INTO stock_count
-    FROM "varies_on" NATURAL LEFT OUTER JOIN "inventory"
-    WHERE "varies_on"."product_id" = p_id;
-
-    RETURN stock_count;
-END
-$$ LANGUAGE plpgsql;
-
-SELECT count_stocks(1);
-
-------------------------------------------------------------------------------------------------------------------------
-
-DROP FUNCTION IF EXISTS "properties_from_product";
-
-CREATE FUNCTION "properties_from_product"(p_id BIGINT)
+CREATE OR REPLACE FUNCTION "properties_from_product"(p_id BIGINT)
     RETURNS TABLE (
-                      "property_id"     BIGINT,
-                      "property_name"   VARCHAR (40),
-                      "value"           VARCHAR (40),
-                      "image_url"       VARCHAR (100),
-                      "price_increment" NUMERIC (10, 2)
-                  )
+        "property_id"     BIGINT,
+        "property_name"   VARCHAR (40),
+        "value"           VARCHAR (40),
+        "image_url"       VARCHAR (100),
+        "price_increment" NUMERIC (10, 2)
+    )
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT *
-        FROM "property" AS pp
-        WHERE pp."property_id" IN (SELECT vo."property_id"
-                                   FROM "product" AS pd NATURAL LEFT OUTER JOIN "varies_on" AS vo
-                                   WHERE pd."product_id" = p_id AND pd IS NOT NULL);
+        SELECT pp.*
+        FROM "property" AS pp NATURAL LEFT OUTER JOIN "varies_on" AS vo NATURAL LEFT OUTER JOIN "product" AS pd
+        WHERE pd.product_id = p_id
+        ORDER BY pp.property_name;
 END
 $$ LANGUAGE plpgsql;
 
 -- SELECT *
 -- FROM properties_from_product(1);
 
+------------------------------------------------------------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION "count_stocks"(p_id BIGINT)
+    RETURNS INTEGER AS $$
+DECLARE stock_count INTEGER;
+BEGIN
+    SELECT SUM("count") INTO stock_count
+    FROM "varies_on" AS vo NATURAL LEFT OUTER JOIN "inventory" AS i
+    WHERE vo."product_id" = p_id;
+
+    IF stock_count NOTNULL
+        THEN RETURN stock_count;
+    ELSE RETURN 0;
+    END IF;
+END
+$$ LANGUAGE plpgsql;
+
+-- SELECT count_stocks(2);
+
+
+------------------------------------------------------------------------------------------------------------------------
 -- Triggers-------------------------------------------------------------------------------------------------------------
 
-
-DROP TRIGGER IF EXISTS "update_variant" ON "varies_on";
-DROP FUNCTION IF EXISTS "update_variant";
 
 CREATE OR REPLACE FUNCTION update_variant()
     RETURNS TRIGGER AS $$
