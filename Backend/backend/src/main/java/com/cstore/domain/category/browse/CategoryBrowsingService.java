@@ -6,7 +6,7 @@ import com.cstore.dao.property.PropertyDao;
 import com.cstore.model.category.Category;
 import com.cstore.model.product.Product;
 import com.cstore.model.product.Property;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,23 +17,18 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+
+@RequiredArgsConstructor
 public class CategoryBrowsingService {
     private final CategoryDao categoryDao;
     private final ProductDao productDao;
     private final PropertyDao propertyDao;
 
-    @Autowired
-    public CategoryBrowsingService(CategoryDao categoryDao, ProductDao productDao, PropertyDao propertyDao) {
-        this.categoryDao = categoryDao;
-        this.productDao = productDao;
-        this.propertyDao = propertyDao;
+    public List<Category> getAllRootCategories() {
+        return categoryDao.findAllRootCategories();
     }
 
-    public List<Category> getAllBaseCategories() {
-        return categoryDao.findAllBaseCategories();
-    }
-
-    public List<Category> getAllDirectSubCategories(Long categoryId) throws SQLException {
+    public List<Category> getAllDirectSubCategories(Long categoryId) {
         return categoryDao.findAllDirectSubCategories(categoryId);
     }
 

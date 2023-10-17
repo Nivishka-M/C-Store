@@ -1,15 +1,21 @@
 package com.cstore.model.product;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "product", schema = "cstore")
+@Entity @Table(name = "product", schema = "cstore")
+@Getter @Setter
+@Builder @AllArgsConstructor @NoArgsConstructor
+@ToString
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
+    @Id @Column(name = "product_id", nullable = false)
+    @GeneratedValue(generator = "productIdGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+        name = "produtIdGenerator", sequenceName = "productIdSequence",
+        allocationSize = 1, initialValue = 1
+    )
     private Long productId;
 
     @Column(name = "product_name", length = 100)
@@ -27,52 +33,4 @@ public class Product {
 
     @Column(name = "image_url")
     private String imageUrl;
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public BigDecimal getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

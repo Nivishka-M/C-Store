@@ -130,9 +130,9 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public List<Category> findAllBaseCategories() {
+    public List<Category> findAllRootCategories() {
         String sql = "SELECT * " +
-                     "FROM \"base_category\";";
+                     "FROM \"root_category\";";
 
         return jdbcTemplate.query(
             sql,

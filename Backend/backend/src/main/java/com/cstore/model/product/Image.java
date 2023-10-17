@@ -1,31 +1,21 @@
 package com.cstore.model.product;
 
 import jakarta.persistence.*;
+import lombok.*;
 
-@Entity
-@Table(name = "image", schema = "cstore")
+@Entity @Table(name = "image", schema = "cstore")
+@Getter @Setter
+@Builder @AllArgsConstructor @NoArgsConstructor
+@ToString
 public class Image {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", nullable = false)
-    private Long id;
+    @Id @Column(name = "image_id", nullable = false)
+    @GeneratedValue(generator = "imageIdGenerator", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+        name = "imageIdGenerator", sequenceName = "imageIdSequence",
+        allocationSize = 1, initialValue = 1
+    )
+    private Long imageId;
 
     @Column(name = "url")
     private String url;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

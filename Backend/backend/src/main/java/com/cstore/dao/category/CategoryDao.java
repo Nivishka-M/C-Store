@@ -2,7 +2,6 @@ package com.cstore.dao.category;
 
 import com.cstore.model.category.Category;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +18,7 @@ public interface CategoryDao {
 
     Category delete(Long categoryId);
 
-    List<Category> findAllBaseCategories();
+    List<Category> findAllRootCategories();
 
     List<Category> findAllDirectSubCategories(Long categoryId);
 

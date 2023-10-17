@@ -38,8 +38,8 @@ public class CategoryBrowsingController {
         summary = "Returns all the base categories."
     )
     @RequestMapping(method = RequestMethod.GET, path = "/base")
-    public List<Category> getAllBaseCategories() {
-        return categoryBrowsingService.getAllBaseCategories();
+    public List<Category> getAllRootCategories() {
+        return categoryBrowsingService.getAllRootCategories();
     }
 
     @Operation(

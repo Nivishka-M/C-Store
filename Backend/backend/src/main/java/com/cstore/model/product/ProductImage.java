@@ -1,49 +1,29 @@
 package com.cstore.model.product;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-@Entity
-@Table(name = "product_image", schema = "cstore", indexes = {@Index(name = "product_id", columnList = "product_id")})
+@Entity @Table(name = "product_image", schema = "cstore")
+@Builder @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter
+@ToString
 public class ProductImage {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", nullable = false)
+    @ToString.Include
+    @Id @Column(name = "image_id", nullable = false)
     private Long id;
 
+    @ToString.Exclude
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }

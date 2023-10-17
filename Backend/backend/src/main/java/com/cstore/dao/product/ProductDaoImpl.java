@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -164,22 +166,34 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public void save(Product product) throws SQLException {
-        String sql = "INSERT INTO `product`(`product_name`, `base_price`, `brand`, `description`, `image_url`) VALUES(?, ?, ?, ?, ?);";
+    public Product save(Product product) {
+        String sql = "INSERT INTO \"product\"(\"product_name\", \"base_price\", \"brand\", \"description\", \"image_url\") " +
+                     "VALUES(?, ?, ?, ?, ?) " +
+                     "RETURNING \"product_id\";";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        Connection connection = DriverManager.getConnection(url, username, password);
-        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        jdbcTemplate.update(
+            connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        preparedStatement.setString(1, product.getProductName());
-        preparedStatement.setBigDecimal(2, product.getBasePrice());
-        preparedStatement.setString(3, product.getBrand());
-        preparedStatement.setString(4, product.getDescription());
-        preparedStatement.setString(5, product.getImageUrl());
+                ps.setString(1, product.getProductName());
+                ps.setBigDecimal(2, product.getBasePrice());
+                ps.setString(3, product.getBrand());
+                ps.setString(4, product.getDescription());
+                ps.setString(5, product.getImageUrl());
 
-        preparedStatement.executeUpdate();
+            return ps;
+            },
+            keyHolder
+        );
 
-        preparedStatement.close();
-        connection.close();
+        Number generatedUserId = keyHolder.getKey();
+
+        if (generatedUserId != null) {
+            product.setProductId(generatedUserId.longValue());
+        }
+
+        return product;
     }
 
     @Override

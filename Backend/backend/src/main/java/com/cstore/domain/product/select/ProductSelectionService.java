@@ -2,7 +2,7 @@ package com.cstore.domain.product.select;
 
 import com.cstore.dao.category.CategoryDao;
 import com.cstore.dao.product.ProductDao;
-import com.cstore.dao.product.image.ImageDao;
+import com.cstore.dao.image.ImageDao;
 import com.cstore.dao.property.PropertyDao;
 import com.cstore.dto.ProductSelectionCategory;
 import com.cstore.dto.SelectedProduct;
@@ -12,7 +12,6 @@ import com.cstore.model.product.Image;
 import com.cstore.model.product.Product;
 import com.cstore.model.product.Property;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Comment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

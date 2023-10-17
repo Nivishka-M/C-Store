@@ -15,7 +15,7 @@ public interface ProductDao {
 
     List<Product> findByName(String productName) throws SQLException;
 
-    void save(Product product) throws SQLException;
+    Product save(Product product);
 
     List<Product> findAllByCategoryId(Long categoryId) throws SQLException;
 
