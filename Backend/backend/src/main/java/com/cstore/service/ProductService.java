@@ -1,7 +1,7 @@
 package com.cstore.service;
 
 import com.cstore.dao.product.ProductDao;
-import com.cstore.dao.varieson.VariesOnDAO;
+import com.cstore.dao.varieson.VariesOnDao;
 import com.cstore.dto.NewProductDto;
 import com.cstore.dto.ProductDto;
 import com.cstore.dto.PropertyDto;
@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
     private final ProductDao productDao;
-    private final VariesOnDAO variesOnDao;
+    private final VariesOnDao variesOnDao;
 
     @Autowired
-    public ProductService(ProductDao productDao, VariesOnDAO variesOnDao) {
+    public ProductService(ProductDao productDao, VariesOnDao variesOnDao) {
         this.productDao = productDao;
         this.variesOnDao = variesOnDao;
     }
@@ -52,7 +52,7 @@ public class ProductService {
             propertyDTO.setPropertyId(variesOn.getProperty().getPropertyId());
             propertyDTO.setPropertyName(variesOn.getProperty().getPropertyName());
             propertyDTO.setValue(variesOn.getProperty().getValue());
-            propertyDTO.setImage(variesOn.getProperty().getImage());
+            propertyDTO.setImageUrl(variesOn.getProperty().getImageUrl());
             propertyDTO.setPriceIncrement(variesOn.getProperty().getPriceIncrement());
 
             properties.add(propertyDTO);

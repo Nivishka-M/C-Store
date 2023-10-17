@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +49,33 @@ public class VariantDaoImpl implements VariantDao {
                 preparedStatement -> preparedStatement.setLong(1, propertyId),
                 new BeanPropertyRowMapper<>(Variant.class)
         );
+    }
+
+    @Override
+    public Variant save(Variant variant) {
+        String sql = "INSERT INTO \"variant\"(\"weight\") " +
+                     "VALUES(?) " +
+                     "RETURNING \"variant_id\";";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(
+            connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                ps.setBigDecimal(1, variant.getWeight());
+
+                return ps;
+            },
+            keyHolder
+        );
+
+        Number generatedUserId = keyHolder.getKey();
+
+        if (generatedUserId != null) {
+            variant.setVariantId(generatedUserId.longValue());
+        }
+
+        return variant;
     }
 
     @Override

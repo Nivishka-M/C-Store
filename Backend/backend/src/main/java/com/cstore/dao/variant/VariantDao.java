@@ -10,5 +10,7 @@ public interface VariantDao {
 
     List<Variant> findByProperty(Long propertyId);
 
+    Variant save(Variant variant);
+
     Integer countStocks(Long varaintId);
 }

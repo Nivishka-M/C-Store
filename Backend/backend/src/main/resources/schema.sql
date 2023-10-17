@@ -109,7 +109,7 @@ CREATE TABLE "property" (
 DROP TABLE IF EXISTS "variant";
 CREATE TABLE "variant" (
     "variant_id" BIGSERIAL,
-    "price"      DECIMAL(10, 2) DEFAULT 0,
+    "price"      NUMERIC (10, 2) DEFAULT 0,
     "weight"     NUMERIC (5, 2),
     PRIMARY KEY ("variant_id")
 );

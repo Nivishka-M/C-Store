@@ -8,9 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class ProductAddRequest {
     private String productName;
     private BigDecimal basePrice;

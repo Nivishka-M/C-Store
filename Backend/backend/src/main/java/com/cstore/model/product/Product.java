@@ -13,7 +13,7 @@ public class Product {
     @Id @Column(name = "product_id", nullable = false)
     @GeneratedValue(generator = "productIdGenerator", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(
-        name = "produtIdGenerator", sequenceName = "productIdSequence",
+        name = "productIdGenerator", sequenceName = "productIdSequence",
         allocationSize = 1, initialValue = 1
     )
     private Long productId;

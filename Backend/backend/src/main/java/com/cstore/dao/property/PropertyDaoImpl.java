@@ -7,6 +7,8 @@ import org.hibernate.annotations.Comment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -44,8 +46,6 @@ public class PropertyDaoImpl implements PropertyDao {
     }
 
     @Override
-
-    @Comment("This method is perfect.")
     public List<Property> findByProductId(Long productId) {
         String sql = "SELECT * " +
                      "FROM \"properties_from_product\"(?);";
@@ -55,5 +55,35 @@ public class PropertyDaoImpl implements PropertyDao {
                 preparedStatement -> preparedStatement.setLong(1, productId),
                 new BeanPropertyRowMapper<>(Property.class)
         );
+    }
+
+    @Override
+    public Property save(Property property) {
+        String sql = "INSERT INTO \"property\"(\"property_name\", \"value\", \"image_url\", \"price_increment\") " +
+                     "VALUES(?, ?, ?, ?) " +
+                     "RETURNING \"property_id\";";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(
+            connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                ps.setString(1, property.getPropertyName());
+                ps.setString(2, property.getValue());
+                ps.setString(3, property.getImageUrl());
+                ps.setBigDecimal(4, property.getPriceIncrement());
+
+                return ps;
+            },
+            keyHolder
+        );
+
+        Number generatedUserId = keyHolder.getKey();
+
+        if (generatedUserId != null) {
+            property.setPropertyId(generatedUserId.longValue());
+        }
+
+        return property;
     }
 }

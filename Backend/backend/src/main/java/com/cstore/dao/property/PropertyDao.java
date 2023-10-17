@@ -10,4 +10,6 @@ public interface PropertyDao {
     public Optional<Property> findById(Long propertyId);
 
     List<Property> findByProductId(Long productId);
+
+    Property save(Property property);
 }

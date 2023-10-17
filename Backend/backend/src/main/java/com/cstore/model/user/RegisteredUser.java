@@ -13,17 +13,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "registered_user", schema = "cstore")
-
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Builder @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter
 @ToString
 public class RegisteredUser implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Id @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @MapsId

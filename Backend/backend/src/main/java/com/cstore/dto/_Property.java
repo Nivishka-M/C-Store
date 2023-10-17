@@ -5,14 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @Builder @AllArgsConstructor @NoArgsConstructor
-public class PropertyDto {
+public class _Property {
     private Long propertyId;
-    private String propertyName;
     private String value;
-    private String imageUrl;
-    private BigDecimal priceIncrement;
 }

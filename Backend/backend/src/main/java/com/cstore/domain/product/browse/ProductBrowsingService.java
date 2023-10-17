@@ -2,10 +2,11 @@ package com.cstore.domain.product.browse;
 
 import com.cstore.dao.product.ProductDao;
 import com.cstore.dao.property.PropertyDao;
-import com.cstore.dao.varieson.VariesOnDAO;
+import com.cstore.dao.varieson.VariesOnDao;
 import com.cstore.domain.category.browse.ProductDto;
 import com.cstore.model.product.Product;
 import com.cstore.model.product.Property;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,22 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class ProductBrowsingService {
-    private final ProductDao productDAO;
-    private final PropertyDao propertyDAO;
-    private final VariesOnDAO variesOnDAO;
-
-    public ProductBrowsingService(ProductDao productDAO, PropertyDao propertyDAO, VariesOnDAO variesOnDAO) {
-        this.productDAO = productDAO;
-        this.propertyDAO = propertyDAO;
-        this.variesOnDAO = variesOnDAO;
-    }
+    private final ProductDao productDao;
+    private final PropertyDao propertyDao;
+    private final VariesOnDao variesOnDao;
 
 
     public List<ProductDto> getAllProducts() throws SQLException {
         List<ProductDto> productDtos = new ArrayList<ProductDto>();
 
-        List<Product> products = productDAO.findAll();
+        List<Product> products = productDao.findAll();
         for (Product product : products) {
             ProductDto productDTO = new ProductDto();
 
@@ -42,7 +38,7 @@ public class ProductBrowsingService {
             productDTO.setImageUrl(product.getImageUrl());
 
             Map<String, List<String>> propertyMap = new HashMap<>();
-            List<Property> properties = propertyDAO.findByProductId(product.getProductId());
+            List<Property> properties = propertyDao.findByProductId(product.getProductId());
             for (Property property : properties) {
                 if (property.getPriceIncrement().compareTo(new BigDecimal("0")) == 0) {
                     if (propertyMap.containsKey(property.getPropertyName())) {
@@ -67,7 +63,7 @@ public class ProductBrowsingService {
     public List<ProductDto> getProductByName(String productName) throws SQLException {
         List<ProductDto> productDtos = new ArrayList<ProductDto>();
 
-        List<Product> products = productDAO.findByName(productName);
+        List<Product> products = productDao.findByName(productName);
         for (Product product : products) {
             ProductDto productDTO = new ProductDto();
 
@@ -78,7 +74,7 @@ public class ProductBrowsingService {
             productDTO.setImageUrl(product.getImageUrl());
 
             Map<String, List<String>> propertyMap = new HashMap<>();
-            List<Property> properties = propertyDAO.findByProductId(product.getProductId());
+            List<Property> properties = propertyDao.findByProductId(product.getProductId());
             for (Property property : properties) {
                 if (property.getPriceIncrement().compareTo(new BigDecimal("0")) == 0) {
                     if (propertyMap.containsKey(property.getPropertyName())) {

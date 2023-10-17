@@ -101,9 +101,6 @@ INSERT INTO "product" ("product_name", "brand", "description", "base_price") VAL
     ('Wireless headset','Saramonic','Wireless full duplex gaming headset', 140),
     ('Electronic thermometer',null,'Digital Forehead Thermometer Electronic Contactless',54);
 
--- SELECT *
--- FROM "product";
-
 -- ---------------------------------------------------------------------------------------------------------------------
 -- "product Image"
 
